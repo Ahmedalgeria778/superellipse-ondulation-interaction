@@ -120,11 +120,19 @@ reference. Tables are numbered `SM.I–SM.XIX` and figures `SM.1–SM.6` in the 
 
 ## Data availability
 
-Raw converged velocity-field arrays (`results/fields/*.npz`) and native FEM fields
-(`results/fem/*.npz`) are large (≈ 280 MB total) and are **excluded from this repository** by
-design. All version-controlled `results/` content (scalar budgets, contrast tables, band
-partitions, audit JSON) is derived directly from the paper's reported numbers. To obtain the
-raw fields, re-run the campaign with the scripts above, or contact the author.
+Raw converged velocity-field arrays (242 LBM `.npz`) and native FEM fields (28 `.npz`),
+together ≈ 278 MB, are distributed as a **GitHub Release asset** rather than inside the git
+tree, so that `git clone` stays lightweight:
+
+- Release: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/tag/v1.0.0>
+- Direct download: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/download/v1.0.0/superellipse_lbm_fem_fields_v1.0.zip>
+
+The archive (`superellipse_lbm_fem_fields_v1.0.zip`) contains `fields/`, `fem/`, a
+`DATA_README.md` (file naming convention and npz keys) and a `MANIFEST.txt` (size + truncated
+SHA-256 per file). All version-controlled `results/` content in this repository (scalar
+budgets, contrast tables, band partitions, audit JSON) is derived directly from the paper's
+reported numbers. To regenerate the raw fields instead, re-run the campaign with the scripts
+above.
 
 ## Provenance
 
