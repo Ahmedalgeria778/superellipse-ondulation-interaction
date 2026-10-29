@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Large raw simulation outputs (not versioned; see README "Data availability")
+results/fields/
+results/fem/
+results/quarantine/
+results/ckpt/
+results/logs/
+results/eps_test/
+*.npz
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+mainNotes.bib
+*_Notes.bib
+texput.log
+
+# Scratch / duplicate manuscript builds
+paper/_bmain.*
+paper/_bsupp.*
+paper/main_build.*
+paper/main_compile.*
+paper/main_old.pdf
+paper/supp_*old*
+paper/*_final.*
+paper/*_v2.*
+paper/*_v3.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp

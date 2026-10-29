@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+title: "Lid-Driven Cavity with a Corrugated Floor: Mechanical Energy Budget"
+type: software
+version: 1.0.0
+date-released: "2026-10-16"
+license: MIT
+license-url: "https://github.com/Ahmedalgeria778/Lid_driven_ondulation/blob/main/LICENSE"
+repository-code: "https://github.com/Ahmedalgeria778/Lid_driven_ondulation"
+url: "https://github.com/Ahmedalgeria778/Lid_driven_ondulation"
+abstract: >-
+  Reference implementation and data set for the numerical study of the steady
+  incompressible flow in a two-dimensional lid-driven cavity with a sinusoidally
+  corrugated bottom wall and a controlled moving-lid velocity profile. The global
+  mechanical-energy budget (lid power P*, viscous dissipation D*, kinetic energy
+  K*) is quantified for a family of corrugation geometries and lid profiles. The
+  reference solver is a D2Q9 multiple-relaxation-time (MRT) lattice-Boltzmann
+  scheme with an interpolated (Bouzidi) bounce-back treatment of the curved wall;
+  an independent Taylor-Hood P2/P1 finite-element solver is used for
+  cross-validation. A manuscript accompanies the code and data.
+authors:
+  - family-names: "Beniaiche"
+    given-names: "Ahmed"
+    orcid: "https://orcid.org/0000-0002-9613-7049"
+    affiliation: >-
+      Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique,
+      Bordj El Kiffan, Algiers, Algeria
+keywords:
+  - "lid-driven cavity"
+  - "lattice Boltzmann method"
+  - "MRT"
+  - "corrugated wall"
+  - "mechanical energy budget"
+  - "computational fluid dynamics"
+  - "moving-lid profile"

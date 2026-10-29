@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software or the accompanying manuscript data, please cite the repository and the associated paper."
+title: "Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
+authors:
+  - name: "Ahmed Beniaiche"
+    affiliation: "Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique, Algiers, Algeria"
+date-released: 2026-10-29
+repository: "https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction"
+license: MIT
+keywords:
+  - lid-driven cavity
+  - superellipse
+  - lattice Boltzmann
+  - D2Q9 MRT
+  - viscous dissipation
+  - energy budget
+  - finite element
+preferred-citation:
+  type: article
+  authors:
+    - name: "Ahmed Beniaiche"
+  title: "Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
+  journal: "Physics of Fluids"
+  year: 2026
+  note: "Manuscript prepared for submission; preprint version of this repository."

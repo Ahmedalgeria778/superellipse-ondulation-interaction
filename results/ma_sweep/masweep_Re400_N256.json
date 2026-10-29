@@ -1,0 +1,109 @@
+{
+  "Re": 400.0,
+  "N": 256,
+  "n": 2.0,
+  "alpha": 0.0,
+  "cases": [
+    {
+      "n": 2.0,
+      "alpha": 0.0,
+      "Nw": 1,
+      "Re": 400.0,
+      "N": 256,
+      "U_ref": 0.026041666677959922,
+      "nu": 0.01666666667389435,
+      "tau": 0.550000000021683,
+      "Ma": 0.0451054898,
+      "D_star": 23.25035,
+      "P_star": 22.62054,
+      "balance": -0.027089,
+      "K_star": 0.039793,
+      "iters": 472000,
+      "residual": 9.41e-09,
+      "status": "converged",
+      "elapsed_s": 2781.0
+    },
+    {
+      "n": 2.0,
+      "alpha": 0.0,
+      "Nw": 1,
+      "Re": 400.0,
+      "N": 256,
+      "U_ref": 0.05208333329818481,
+      "nu": 0.03333333331083828,
+      "tau": 0.5999999999325148,
+      "Ma": 0.0902109795,
+      "D_star": 23.24971,
+      "P_star": 22.506,
+      "balance": -0.031987999999999996,
+      "K_star": 0.039792,
+      "iters": 270000,
+      "residual": 8.77e-09,
+      "status": "converged",
+      "elapsed_s": 1880.6
+    },
+    {
+      "n": 2.0,
+      "alpha": 0.0,
+      "Nw": 1,
+      "Re": 400.0,
+      "N": 256,
+      "U_ref": 0.10416666665410465,
+      "nu": 0.06666666665862697,
+      "tau": 0.6999999999758809,
+      "Ma": 0.1804219591,
+      "D_star": 23.29267,
+      "P_star": 22.53984,
+      "balance": -0.03232,
+      "K_star": 0.039765,
+      "iters": 168000,
+      "residual": 3.53e-09,
+      "status": "converged",
+      "elapsed_s": 1469.9
+    },
+    {
+      "n": 2.0,
+      "alpha": 0.0,
+      "Nw": 1,
+      "Re": 400.0,
+      "N": 256,
+      "U_ref": 0.2083333333082093,
+      "nu": 0.13333333331725394,
+      "tau": 0.8999999999517618,
+      "Ma": 0.3608439182,
+      "D_star": 23.35998,
+      "P_star": 22.74999,
+      "balance": -0.026113,
+      "K_star": 0.039638,
+      "iters": 120000,
+      "residual": 4.32e-09,
+      "status": "converged",
+      "elapsed_s": 1085.1
+    }
+  ],
+  "fit": {
+    "ma2": {
+      "c0": -0.030651915422898978,
+      "c1": 0.02947767853359507,
+      "r2": 0.2938559800052484,
+      "frac_at_zero": 0.9582316938507872
+    },
+    "ma": {
+      "c0": -0.030866217391749183,
+      "c1": 0.008801396602972973,
+      "r2": 0.14445213328822437,
+      "frac_at_zero": 0.9649311426706636
+    },
+    "ma_campaign": 0.09021097956087902,
+    "eps_campaign": -0.031987999999999996,
+    "spread_pt_pct": 0.6207,
+    "eps_at_each_Ma": [
+      -0.027089,
+      -0.031987999999999996,
+      -0.03232,
+      -0.026113
+    ]
+  },
+  "source": "reconstruit a partir du stdout du balayage Ma N=256 termine le 2026-10-18 ~16:45 (results/ma_sweep/masweep_Re400_N256.json non ecrit : crash systeme 17:11 + bug de format string corrige ensuite) ; reconstruit le 2026-10-18 19:28",
+  "note_precision": "D*, P*, K* a 1e-5 pres, balance a 1e-6 pres (4 decimales de %), Ma a 1e-10 pres (recalcule depuis U_ref) ; precision tres au-dessus des besoins de l'ajustement"
+}

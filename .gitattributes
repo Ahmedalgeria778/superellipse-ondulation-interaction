@@ -1,0 +1,18 @@
+# Normalize line endings
+* text=auto eol=lf
+*.tex text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.bib text eol=lf
+*.cff text eol=lf
+
+# Binary assets
+*.pdf binary
+*.png binary
+*.npz binary
+
+# Vendored provenance copies are reference material, not first-party code
+provenance/ linguist-vendored
+paper/ linguist-documentation

@@ -1,0 +1,6 @@
+\section{Data and reproducibility note}
+\label{suppsec:repro}
+
+The scalar results are stored as JSON files in the directory \texttt{results/scalars/}, one file per converged simulation, and are consolidated into the table \texttt{scalars\_clean.csv} used for the figures and tables of the main text. Each JSON file contains the following fields: \texttt{Re}, \texttt{n}, \texttt{alpha}, \texttt{N}, \texttt{P\_star}, \texttt{D\_star}, \texttt{K\_star}, \texttt{fluid\_area}, \texttt{Ma}, \texttt{iters}, \texttt{residual}, \texttt{status}. The velocity fields are stored as NumPy \texttt{.npz} files in \texttt{results/fields/}, with arrays \texttt{ux}, \texttt{uy}, \texttt{rho}, \texttt{fluid} (boolean mask), and the grid coordinates \texttt{xc}, \texttt{yc}.
+
+All figures in the main manuscript and in this supplementary material were generated from these files using Python scripts with Matplotlib. The sign conventions, normalizations, and contrast definitions used in the scripts are exactly those stated in the main manuscript (Sections~II.E and~II.G). The complete scalar dataset, converged velocity field arrays, and post-processing scripts are available from the corresponding author upon reasonable request (and will be deposited in an open-access Zenodo repository upon publication).

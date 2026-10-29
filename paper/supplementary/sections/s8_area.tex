@@ -1,0 +1,52 @@
+\section{Area-based reference model and supplementary analyses}
+\label{suppsec:area}
+
+\subsection{Area reference model}
+
+The area-only reference assumes that the change in dissipation across a geometric transition is explained solely by the change in fluid area:
+\begin{equation}
+I_{D,\mathrm{area}}(q_i,q_j) = \frac{A_f(q_j)-A_f(q_i)}{A_f(q_i)}\times 100\%.
+\end{equation}
+The fluid area is not constant across the exponent transitions: it grows from $A_f=0.8927$ ($n=2$) to $0.9635$ ($n=4$), $0.9819$ ($n=6$), and $0.9892$ ($n=8$) at $\alpha=0$. Here $A_f^{\rm analytic}=HL-\int y_b\,dx$ is the exact analytic superellipse area; the discrete mask area recorded in the numerical outputs, $A_f^{\rm mask}$, differs from it by at most $\sim0.02\%$ at $N=384$ (e.g.\ $0.96356$ versus $0.963519$ for $n=4$). The reference model uses the analytic area, while the saved scalars report the mask area; the two agree to well within the resolution uncertainty quoted throughout. The model therefore predicts nonzero positive contrasts, $+7.93\%$, $+1.91\%$, and $+0.75\%$ for $(2,4)$, $(4,6)$, and $(6,8)$, respectively. Table~\ref{supptab:area} compares these predictions with the measured values. The measured contrasts are smaller than the prediction by factors ranging from $13$ (the $(2,4)$ transition at $Re=1000$, where the geometric response is strongest) to $1.3\times10^{4}$ (the $(6,8)$ transition at $Re=400$, where the trailing contrast nearly vanishes). They share the sign of the prediction for every transition at $Re=100$ and $Re=400$ and for $(4,6)$ at $Re=1000$, but not for $(6,8)$ at $Re=1000$, where the measured contrast is resolved and negative: the extensive area reference cannot produce a negative contrast, so this is the clearest single indication that the area-only model is a scale reference rather than a prediction. Two entries of the table are flagged as upper bounds, for the reasons given in Section~\ref{suppsec:contrasts}: the $Re=100$ $(4,6)$ contrast cannot be resolution-tested at that Reynolds number, and the $Re=400$ $(6,8)$ contrast falls inside its own $N=128$--$384$ span. The area-only model is therefore a simple extensive reference, not a quantitative prediction of the energetic response.
+
+\begin{table}[!htbp]
+\centering
+\caption{Comparison with the area-based reference model at $N=384$, $\alpha=0$. The measured contrast $I_D$ is compared with the area-only prediction $I_{D,\mathrm{area}}$; the ratio is given in absolute value, and the sign of the measured contrast is stated explicitly where it differs from the prediction.}
+\label{supptab:area}
+\begin{tabular}{@{}ccccc@{}}
+\hline
+Transition & $Re$ & $I_D$ [\%] & $I_{D,\mathrm{area}}$ [\%] & ratio \\
+\hline
+$(2,4)$ & $100$  & $+0.0218$ & $+7.93$ & $364$ \\
+$(2,4)$ & $400$  & $+0.3249$ & $+7.93$ & $24.4$ \\
+$(2,4)$ & $1000$ & $+0.5909$ & $+7.93$ & $13.4$ \\
+$(4,6)$ & $100$  & $+0.00296$& $+1.91$ & $645$ (upper bound) \\
+$(4,6)$ & $400$  & $+0.0129$ & $+1.91$ & $148$ \\
+$(4,6)$ & $1000$ & $+0.0103$ & $+1.91$ & $185$ \\
+$(6,8)$ & $100$  & $+0.00042$& $+0.75$ & $1786$ \\
+$(6,8)$ & $400$  & $+0.00006$& $+0.75$ & $1.3\times10^{4}$ (upper bound) \\
+$(6,8)$ & $1000$ & $-0.0037$ & $+0.75$ & $203$ (sign reversed) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Amplitude interaction}
+
+When both amplitude values $\alpha=0$ and $\alpha=0.1$ are available for the same $(Re,n)$ pair, the effect of $\alpha$ is a downward shift of $P^*$ and $D^*$ consistent with the reduction of the fluid area from $A_f=0.8927$ ($\alpha=0$) to $A_f=0.8427$ ($\alpha=0.1$) at $n=2$. More importantly, the amplitude modifies the magnitude of the geometric contrast itself. At $Re=400$ the $(2,4)$ dissipation contrast is $+0.3249\%$ at $\alpha=0$ and $+0.1333\%$ at $\alpha=0.1$; at $Re=1000$ it is $+0.5909\%$ and $+0.0782\%$; at $Re=100$ it is $+0.0218\%$ and $+0.0081\%$. The hierarchy of the contrasts across $n$ is preserved at both amplitudes, but its quantitative strength is weaker when the wall is undulated. The trailing transitions change sign with amplitude at $Re\ge400$: at $Re=400$ the $(4,6)$ and $(6,8)$ contrasts are $+0.0129\%$ and $+0.00006\%$ at $\alpha=0$ but $-0.0039\%$ and $-0.0017\%$ at $\alpha=0.1$, and at $Re=1000$ they are $+0.0103\%$ and $-0.0037\%$ at $\alpha=0$ and $-0.0242\%$ and $-0.0052\%$ at $\alpha=0.1$ (Table~\ref{supptab:contrasts}). At $Re=100$, by contrast, both trailing contrasts stay positive under undulation but weaken further, from $+0.00296\%$ to $+0.00098\%$ for $(4,6)$ and from $+0.00042\%$ to $+0.00006\%$ for $(6,8)$. At the undulated wall, therefore, increasing the exponent beyond $n=4$ slightly reduces the dissipation at $Re=400$ and $Re=1000$, while at $Re=100$ it still increases it, by an amount at the resolution floor.
+
+\begin{table}[!htbp]
+\centering
+\caption{Effect of the undulation amplitude on the $(2,4)$ dissipation contrast at $N=384$.}
+\label{supptab:amplitude}
+\begin{tabular}{@{}ccc@{}}
+\hline
+$Re$ & $I_D(2,4)$, $\alpha=0$ [\%] & $I_D(2,4)$, $\alpha=0.1$ [\%] \\
+\hline
+$100$  & $+0.0218$ & $+0.0081$ \\
+$400$  & $+0.3249$ & $+0.1333$ \\
+$1000$ & $+0.5909$ & $+0.0782$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage

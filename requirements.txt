@@ -1,0 +1,6 @@
+# Environnement reproductible du projet.
+# Versions réellement utilisées dans le venv de référence (Python 3.14.5).
+numpy>=1.26
+numba>=0.61
+scipy>=1.13
+matplotlib>=3.9

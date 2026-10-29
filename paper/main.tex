@@ -1,0 +1,81 @@
+\documentclass[aip,pof,reprint]{revtex4-2}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\renewcommand{\figurename}{FIG.}
+\renewcommand{\tablename}{TABLE}
+
+\begin{document}
+
+\title{Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis}
+
+\author{Ahmed Beniaiche}
+\affiliation{Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique, Algiers, Algeria}
+\email{beniaiche\_ahmed25@yahoo.fr}
+
+\begin{abstract}
+Flattening the bottom of a lid-driven cavity adds fluid to the domain, yet the added fluid barely dissipates. We quantify this sub-extensive energetic response for a controlled superelliptic bottom family ($n\in\{2,4,6,8\}$, undulation amplitude $\alpha\in\{0,0.1\}$) using a D2Q9 multiple-relaxation-time lattice Boltzmann method at $Re\in\{100,400,1000\}$ and grid resolutions $N=128,256,384$ (with selected cases extended to $N=512$ at $Re=400$ and $Re=1000$, $\alpha=0$). Across the primary flattening transition $n=2\to4$, where the fluid area grows by $7.93\%$, total viscous dissipation increases by only $+0.0218\%$ ($Re=100$), $+0.3249\%$ ($Re=400$), and $+0.5909\%$ ($Re=1000$); an area-only extensive model overpredicts these contrasts by factors of 13 to 364. An exact cell-by-cell $\mathrm{d}A/\mathrm{d}B$ partition reveals the mechanism. The newly opened shoulder region covers $7.4\%$ of the fluid area at $Re=400$ but contributes only $0.20\%$ of the total dissipation (mean density $2.7\%$ of the cavity average), whereas the top $10\%$ near-lid layer concentrates $74\%$ to $84\%$ of all dissipation. The redistribution $\mathrm{d}A$ within the common region is itself a near-cancellation---at $Re\ge400$, between a positive lid-band change and a negative core change---whose balance is Reynolds-dependent: $\mathrm{d}A$ is negative at $Re=100$, crosses zero near $Re\approx145$, and saturates above $Re\approx600$, while the added-region term $\mathrm{d}B$ grows monotonically. The resulting hierarchy $|I(2,4)|\gg|I(4,6)|\gg|I(6,8)|$ holds at all three Reynolds numbers, with the primary step carrying $96.2\%$ of the summed response at $Re=400$. At $Re=1000$ the full sequence is resolved as $+0.5909\%$, $+0.0103\%$, and $-0.0037\%$, each step exceeding its own $N=128$--$512$ span by a factor of at least 15; at $Re=400$ the $(6,8)$ step lies inside its span and is quoted only as an upper bound. Paired-contrast uncertainties across $N=128$--$512$ are bounded by $3.4\times10^{-4}$, $2.4\times10^{-3}$, and $1.4\times10^{-2}$ percentage points at $Re=100,400,1000$. An independent conforming Taylor--Hood finite-element check, evaluated with native element-wise diagnostics, reproduces the primary dissipation contrast to $0.002$ percentage points at $Re=400$ and $0.008$ percentage points at $Re=1000$; the finite-element variation across its own meshes exceeds these gaps, so the check is reported as cross-solver consistency rather than as a convergence proof.
+\end{abstract}
+
+\keywords{lid-driven cavity, lattice Boltzmann method, MRT, viscous dissipation, energy balance, geometric contrast, sub-extensive response, grid sensitivity}
+
+\maketitle
+
+\input{sections/00_nomenclature}
+\input{sections/01_intro}
+\input{sections/02_formulation}
+\input{sections/03_numerical}
+\input{sections/04_results}
+\input{sections/05_conclusions}
+
+\section*{Supplementary Material}
+The supplementary material contains the following items, referenced throughout the main text as Table~SM.I--SM.XIX, Fig.~SM.1--SM.6, and Section~VII.F:
+\begin{itemize}
+\item Geometry function, parameter ranges, and fluid areas (Table~SM.I);
+\item Full LBM numerical parameter set for the production and test grids (Table~SM.II);
+\item Reynolds-sweep LBM parameters at $N=128$ (Table~SM.III);
+\item Grid$\times$Mach factorial design (Table~SM.IV);
+\item Exact square-cavity verification against Ghia et al.\ centerline profiles, including the near-square ($n=8$) case (Table~SM.V);
+\item Regularized-lid isolation test: complete $Re\times N\times\{$uniform, regularized$\}$ matrix (Table~SM.VI);
+\item Independent Taylor--Hood finite-element method (FEM) cross-validation: native mesh convergence and FEM--LBM contrast comparison at $Re=400$ and $Re=1000$ (Tables~SM.VII and SM.VIII);
+\item Complete energetic dataset ($P^*$, $D^*$, $K^*$, $A_f$) for all 24 configurations at $N=384$ (Table~SM.IX);
+\item Full contrast dataset ($I_D$, $I_P$, $\delta_{IP/ID}$, spans) for all resolutions $N=128$--$512$, transitions, and amplitudes (Table~SM.X);
+\item Energy-balance audit $\varepsilon_E = |P^*-D^*|/D^*$ at $N=384$ for all configurations (Table~SM.XI);
+\item Energy-balance audit at the $N=512$ extension ($Re=400$ and $1000$, $\alpha=0$) (Table~SM.XII);
+\item Flow-field maps (velocity magnitude and streamlines) for every converged configuration, separated by amplitude (Figs.~SM.2 and SM.3);
+\item Resolution-dependence figure for $I_D(2,4)$ and $\delta_{IP/ID}$ (Fig.~SM.4);
+\item Exact spatial decomposition of the dissipation contrast into $\mathrm{d}A$ (four-band common region) and $\mathrm{d}B$ (added region) at $N=384$ (Table~SM.XIII and Fig.~SM.6);
+\item Partition $\mathrm{d}A$, $\mathrm{d}B$ along the $N=128$ Reynolds sweep (Table~SM.XIV);
+\item Grid robustness of the $\mathrm{d}A/\mathrm{d}B$ partition, with all four bands recomputed at every resolution $N=128$--$512$ and the cancellation index, plus its resolution-dependence figure (Table~SM.XV and Fig.~SM.5);
+\item Exploratory Reynolds sweep: primary contrast $I_D(2,4)$ and local exponent $\gamma_{\mathrm{loc}}$ (Table~SM.XVI);
+\item Area-reference comparison: measured $I_D$ vs.\ area-only prediction $I_{D,\mathrm{area}}$ (Table~SM.XVII);
+\item Amplitude-interaction table: $I_D(2,4)$ at $\alpha=0$ and $\alpha=0.1$ (Table~SM.XVIII);
+\item Re=100 energy-balance defect versus the paired contrast, showing common-mode cancellation (Table~SM.XIX);
+\item Robustness tests: wall-gradient treatment, effective-Reynolds perturbation, and discrete-vs-analytic area comparison (Section~VII.F).
+\end{itemize}
+
+\begin{acknowledgments}
+\par\vspace{0.5ex}
+This work was carried out at the Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique, Algiers, Algeria. No external funding was received.
+\end{acknowledgments}
+
+\section*{Author Declarations}
+\subsection*{Conflict of Interest}
+The author declares no conflict of interest.
+\subsection*{Author Contributions}
+A.~Beniaiche: Conceptualization, Methodology, Software, Investigation, Formal analysis, Validation, Writing -- original draft, Writing -- review \& editing.
+
+\section*{Data Availability Statement}
+The data that support the findings of this study are available within the article and its supplementary material. The converged scalar datasets, velocity-field arrays, and post-processing scripts that support the findings of this study are available from the corresponding author upon reasonable request.
+
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,22 @@
+\section{Pairwise contrast audit}
+\label{suppsec:contrasts}
+
+\subsection{Recomputation of the contrasts}
+
+The matched contrasts are computed directly from the absolute scalar values:
+\begin{equation}
+I_D(q_i,q_j) = \frac{D^*(q_j)-D^*(q_i)}{D^*(q_i)}\times 100\%, \qquad
+I_P(q_i,q_j) = \frac{P^*(q_j)-P^*(q_i)}{P^*(q_i)}\times 100\%.
+\end{equation}
+The sign convention is fixed: a positive $I_D$ indicates that the higher-exponent geometry dissipates more energy than the lower-exponent one, relative to the latter.
+
+\subsection{Sign and normalization conventions}
+
+The denominator in the percentage is always $D^*(q_i)$ (or $P^*(q_i)$) of the earlier configuration in the pair. The three transitions studied are $(2,4)$, $(4,6)$, and $(6,8)$; the full sequence is available at all three Reynolds numbers. The full contrast dataset for all resolutions is provided in Table~\ref{supptab:contrasts}, which also lists, for every transition and amplitude, the span of $I_D$ over $N=128$, $256$, $384$, and $512$ (the last resolution available only at $Re=400$ and $Re=1000$, $\alpha=0$). That span is the resolution floor of the contrast itself, and the working criterion throughout is that a contrast is resolved only when $|I_D|$ at the finest available resolution exceeds it.
+
+At $Re=400$ the $(6,8)$ contrast at $\alpha=0$ is $+6\times 10^{-5}\%$ against a floor of $1.1\times 10^{-4}$ percentage points, so it is reported only as an upper bound and its sign is not stable across grids. The same transition at $\alpha=0.1$ ($-0.0017\%$, floor $8.5\times 10^{-5}$) and the $(4,6)$ contrast at both amplitudes ($+0.0129\%$, floor $5.0\times 10^{-4}$, and $-0.0039\%$, floor $8.7\times 10^{-4}$) are resolved, the spans being $5\%$, $3.9\%$ and $23\%$ of their magnitudes. At $Re=1000$ both trailing transitions are resolved: $(4,6)=+0.0103\%$ and $(6,8)=-0.0037\%$ at $\alpha=0$, with spans over $N=128$--$512$ of $6.9\times10^{-4}$ and $1.1\times10^{-4}$ percentage points, and $(4,6)=-0.0242\%$, $(6,8)=-0.0052\%$ at $\alpha=0.1$, with spans of $2.2\times10^{-3}$ and $5.5\times10^{-4}$ percentage points. At the undulated wall the two trailing transitions are already negative at $Re=400$ ($-0.0039\%$ and $-0.0017\%$), each larger in magnitude than its own span. The $N=512$ data at $Re=1000$ confirm the monotonicity of the $(2,4)$ contrast ($+0.592\%$) and strengthen the negative sign of the $(6,8)$ transition ($-0.0036\%$).
+
+At $Re=100$ the trailing transitions are $+0.00296\%$ and $+0.00042\%$ at $\alpha=0$, and $+0.00098\%$ and $+0.00006\%$ at $\alpha=0.1$. Only part of this set is directly usable. On the two coarser grids the $n\ge 6$ cases at this Reynolds number run at $Ma_{\max}=0.18$ and $0.09$ while their $n=4$ partners run at $0.068$ and $0.034$, so the coarse members of the $(4,6)$ sequence are not in the same compressibility regime as the reference; the $1.145$ percentage-point apparent span therefore measures that mismatch rather than grid convergence, and no resolution floor can be assigned to the $Re=100$ $(4,6)$ contrast, whose $N=384$ value is quoted as an upper bound. The $(6,8)$ pairs match in Mach number on every grid, their compressibility error cancels in common mode, and their spans ($8.1\times 10^{-5}$ and $5.5\times 10^{-5}$ percentage points) are genuine floors: $+0.00042\%$ at $\alpha=0$ is resolved at $5.2$ times its span, while $+0.00006\%$ at $\alpha=0.1$ is marginal at $1.1$ times its span and is quoted for completeness only.
+
+\input{contrasts_table}
+

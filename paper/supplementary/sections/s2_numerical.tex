@@ -1,0 +1,97 @@
+\section{MRT-lattice Boltzmann implementation and numerical parameters}
+\label{suppsec:lbm}
+
+\subsection{MRT-LBM details}
+
+The D2Q9 lattice is used with nine discrete velocities. The distribution functions $f_i$ are transformed to moment space via the matrix $\mathbf{M}$, collided with the diagonal relaxation matrix $\mathbf{S}=\mathrm{diag}(s_0,s_1,\dots,s_8)$, and transformed back before streaming. The hydrodynamic moments use relaxation rates $s_0=0$, $s_1=1$, $s_3=s_5=1/\tau$, while the non-hydrodynamic moments are fixed at standard values for stability at low Mach number. The kinematic viscosity is related to the relaxation time by
+\begin{equation}
+\nu = c_s^2\left(\tau-\tfrac{1}{2}\right)\Delta t, \qquad c_s^2=\tfrac{1}{3}.
+\end{equation}
+The lattice velocity is set from $U=(\tau-\tfrac12)\,Re/(3N)$, so that $Re=UN/\nu_{\mathrm{lat}}$ with $\nu_{\mathrm{lat}}=\tfrac13(\tau-\tfrac12)$. The lattice Mach number is $Ma=U/c_s$.
+
+\subsection{Lid and curved-wall treatment}
+
+\paragraph{Curved bottom wall.}
+The bottom boundary is handled with Bouzidi interpolated bounce-back~\cite{Bouzidi2001}. For each fluid node adjacent to the boundary, the distance $q$ from the node to the wall along the lattice link is measured; the unknown population is reconstructed as a linear interpolation between the wall and the upstream node, weighted by $q$. This second-order treatment resolves the curved boundary without stair-step approximations.
+
+\paragraph{Moving lid.}
+The lid velocity is imposed using a regularized momentum injection: the top-wall links receive a prescribed momentum consistent with the lid velocity, smoothed near the corners with a smoothstep profile of width $\varepsilon=0.02$. This is a link-based momentum forcing that reproduces the prescribed lid velocity while mitigating the corner singularity.
+
+\subsection{Parameters by Reynolds number and resolution}
+
+Table~\ref{supptab:params} lists the LBM parameters for each $(Re,N)$ combination used in the primary campaign. The relaxation time $\tau$ is held fixed for each Reynolds number and the lattice velocity follows the diffusive scaling $U=(\tau-\tfrac12)\,Re/(3N)$; as a result $U\propto 1/N$ and the lattice Mach number $Ma = U/c_s$ decreases with refinement. Because $\tau$ is chosen for numerical stability rather than to keep $Ma$ fixed, $Ma$ is not identical across Reynolds numbers: it is largest at the coarsest grid and highest $Re$ ($Ma\approx0.18$ at $N=128$, $Re=400/1000$), and it is $\approx0.06$ or below on the $N=384$ production grid.
+
+\begin{table}[!htbp]
+\centering
+\caption{Complete numerical parameter set for each Reynolds-number and resolution combination of the primary matrix. Here $\tau$ is fixed per Reynolds number; $U=(\tau-\tfrac12)Re/(3N)$ and $Ma=\sqrt{3}\,U$. Values at $N=384$ are the production grid.}
+\label{supptab:params}
+\begin{tabular}{@{}ccccc@{}}
+\hline
+$Re$ & $N$ & $\tau$ & $U$ & $Ma$ \\
+\hline
+$100$  & $128$ & $0.65$ & $0.039063$ & $0.0677$ \\
+$100$  & $256$ & $0.65$ & $0.019531$ & $0.0338$ \\
+$100$  & $384$ & $0.65$ & $0.013021$ & $0.0226$ \\
+$400$  & $128$ & $0.60$ & $0.104167$ & $0.1804$ \\
+$400$  & $256$ & $0.60$ & $0.052083$ & $0.0902$ \\
+$400$  & $384$ & $0.60$ & $0.034722$ & $0.0601$ \\
+$1000$ & $128$ & $0.54$ & $0.104167$ & $0.1804$ \\
+$1000$ & $256$ & $0.54$ & $0.052083$ & $0.0902$ \\
+$1000$ & $384$ & $0.54$ & $0.034722$ & $0.0601$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Complete parameter set for the Reynolds sweep.}
+To ensure full reproducibility of the continuous Reynolds-number analysis reported in the main text, Table~\ref{supptab:resweep_params} documents the exact LBM parameters for all 19 Reynolds numbers of the $N=128$ fine sweep ($Re=100$ to $1000$ in increments of $50$). At $Re=100$, the run uses $\tau=0.65$ and $U=0.039063$ ($Ma=0.0677$). For all subsequent points $Re\ge150$, the lattice velocity is held constant at $U=5/48\approx0.104167$ ($Ma=\sqrt{3}\,U\approx0.1804$), so that the kinematic viscosity is $\nu_{\rm lat} = 40/(3\,Re)$ and the relaxation time follows the exact relation $\tau = 0.5 + 40/Re$.
+
+\begin{table}[!htbp]
+\centering
+\caption{Complete LBM numerical parameters for the 19-point exploratory Reynolds-number sweep at $N=128$. For $Re=100$, $\tau=0.65$ and $U=0.039063$ ($Ma=0.0677$). For all $Re\ge150$, the lattice velocity is fixed at $U=5/48\approx0.104167$ ($Ma=\sqrt{3}\,U\approx0.1804$), giving $\nu_{\rm lat} = \frac{40}{3 Re}$ and $\tau = 0.5 + \frac{40}{Re}$.}
+\label{supptab:resweep_params}
+\begin{tabular}{@{}ccccc|ccccc@{}}
+\hline
+$Re$ & $\tau$ & $U$ & $Ma$ & $\nu_{\rm lat}$ & $Re$ & $\tau$ & $U$ & $Ma$ & $\nu_{\rm lat}$ \\
+\hline
+$100$ & $0.65000$ & $0.039063$ & $0.0677$ & $0.050000$ & $550$ & $0.57273$ & $0.104167$ & $0.1804$ & $0.024242$ \\
+$150$ & $0.76667$ & $0.104167$ & $0.1804$ & $0.088889$ & $600$ & $0.56667$ & $0.104167$ & $0.1804$ & $0.022222$ \\
+$200$ & $0.70000$ & $0.104167$ & $0.1804$ & $0.066667$ & $650$ & $0.56154$ & $0.104167$ & $0.1804$ & $0.020513$ \\
+$250$ & $0.66000$ & $0.104167$ & $0.1804$ & $0.053333$ & $700$ & $0.55714$ & $0.104167$ & $0.1804$ & $0.019048$ \\
+$300$ & $0.63333$ & $0.104167$ & $0.1804$ & $0.044444$ & $750$ & $0.55333$ & $0.104167$ & $0.1804$ & $0.017778$ \\
+$350$ & $0.61429$ & $0.104167$ & $0.1804$ & $0.038095$ & $800$ & $0.55000$ & $0.104167$ & $0.1804$ & $0.016667$ \\
+$400$ & $0.60000$ & $0.104167$ & $0.1804$ & $0.033333$ & $850$ & $0.54706$ & $0.104167$ & $0.1804$ & $0.015686$ \\
+$450$ & $0.58889$ & $0.104167$ & $0.1804$ & $0.029630$ & $900$ & $0.54444$ & $0.104167$ & $0.1804$ & $0.014815$ \\
+$500$ & $0.58000$ & $0.104167$ & $0.1804$ & $0.026667$ & $950$ & $0.54211$ & $0.104167$ & $0.1804$ & $0.014035$ \\
+      &           &            &          &            & $1000$ & $0.54000$ & $0.104167$ & $0.1804$ & $0.013333$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Coupled $(\tau,U)$ sensitivity.}
+At fixed $Re$ the couple $(\tau,U)$ is not unique: holding $U$ fixed while varying $\tau$ (or vice versa) traces lines of constant $Re$ in the $(Ma,\tau)$ plane. Because $\tau$ enters both the viscosity and, through the Bouzidi $q$-distance, the effective position of the curved wall, we recomputed both states of the primary contrast --- the reference $n=2$ and the flat-bottomed $n=4$ --- at $Re=400$ on two grids and over four lattice speeds $U\in\{0.026042,0.052083,0.104167,0.208333\}$, i.e.\ $Ma\in\{0.045,0.090,0.180,0.361\}$ and, on each grid, $\tau=\tfrac12+3U N/Re$ (Table~\ref{supptab:fitma}).
+
+The energy-balance defect $\varepsilon=(P^*-D^*)/D^*$ (Table~\ref{supptab:fitma}, left) is grid-controlled: at fixed $Ma$ it roughly halves from $N=128$ to $N=256$ (from $-4.24\%$ to $-2.71\%$ at the lowest $Ma$; from $-6.20\%$ to $-3.23\%$ at $Ma=0.18$), the first-order signature of a discretisation error. Its $Ma$ dependence, however, is not negligible on the coarse grid: at $N=128$ the defect moves by $2.0$ percentage points ($-4.24\%$ to $-6.25\%$) over the factor-eight change of $Ma$, whereas at $N=256$ the same range moves it by only $0.6$ point. The coarse-grid $N=128$ Reynolds sweep of the main text therefore carries at least a partial $Ma$ effect, which is why the resolution study is performed at fixed $\tau$ per $Re$ rather than at fixed $Ma$.
+
+What matters for the present work, however, is not the absolute defect but the matched contrast $I_D(2,4)$, which is a difference of the $n=2$ and $n=4$ states computed at the \emph{same} $(\tau,U)$. We computed this contrast at every one of the eight $(N,Ma)$ couples. It varies far less than the defect: at $N=128$ the contrast is $0.32224\%$, $0.32294\%$, $0.32251\%$, and $0.32103\%$ at $Ma=0.045$, $0.090$, $0.180$, and $0.361$, and at $N=256$ it is $0.32465\%$, $0.32462\%$, $0.32407\%$, and $0.32270\%$ (Table~\ref{supptab:fitma}). Across the full factor-eight $Ma$ range, $I_D(2,4)$ changes by only $0.0019$ percentage point on either grid -- a span of about $0.6\%$ of its own value -- whereas the absolute defect moves by $2.0$ points ($N=128$) or $0.6$ point ($N=256$) over the same range. The near-cancellation of the common discretisation and compressibility error in the paired difference is therefore demonstrated, not assumed: the same $Ma$ variation that moves the absolute defect by two points moves the contrast by well under $1\%$ of itself.
+
+\begin{table}[!htbp]
+\centering
+\caption{Grid$\times$Mach factorial at $Re=400$ for the two states of the primary contrast, $n=2$ (reference) and $n=4$. Because $U$ is held fixed, $\nu=UN/Re$ and $\tau=\tfrac12+3\nu$ depend on the grid; the relaxation time is listed separately for each grid. Columns: lattice speed $U$ and Mach number, relaxation time $\tau$ on each grid, energy-balance defect $\varepsilon=(P^*-D^*)/D^*$ of the reference $n=2$ state (percent), and the matched contrast $I_D(2,4)=100\,(D^*_{4}-D^*_{2})/D^*_{2}$ (percent).}
+\label{supptab:fitma}
+\begin{tabular}{@{}cccccc@{}}
+\hline
+$U$ & $Ma$ & $\tau$ ($N{=}128$) & $\tau$ ($N{=}256$) & $\varepsilon$ (\%) & $I_D(2,4)$ (\%) \\
+\hline
+\multicolumn{6}{@{}l}{$N=128$} \\
+$0.026042$ & $0.045$ & $0.525$ & $0.550$ & $-4.238$ & $0.32224$ \\
+$0.052083$ & $0.090$ & $0.550$ & $0.600$ & $-5.511$ & $0.32294$ \\
+$0.104167$ & $0.180$ & $0.600$ & $0.700$ & $-6.204$ & $0.32251$ \\
+$0.208333$ & $0.361$ & $0.700$ & $0.900$ & $-6.253$ & $0.32103$ \\
+\multicolumn{6}{@{}l}{$N=256$} \\
+$0.026042$ & $0.045$ & $0.525$ & $0.550$ & $-2.709$ & $0.32465$ \\
+$0.052083$ & $0.090$ & $0.550$ & $0.600$ & $-3.199$ & $0.32462$ \\
+$0.104167$ & $0.180$ & $0.600$ & $0.700$ & $-3.232$ & $0.32407$ \\
+$0.208333$ & $0.361$ & $0.700$ & $0.900$ & $-2.611$ & $0.32270$ \\
+\hline
+\end{tabular}
+\end{table}

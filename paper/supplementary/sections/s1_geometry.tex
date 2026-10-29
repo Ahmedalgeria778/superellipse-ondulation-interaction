@@ -1,0 +1,41 @@
+\section{Exact geometric definitions and parameter ranges}
+\label{suppsec:geometry}
+
+\subsection{Exact geometry}
+
+The bottom boundary of the cavity follows the curve
+\begin{equation}
+y_b(x)= b\left[1-\left(1-\left|\tfrac{x}{a}\right|^{n}\right)^{1/n}\right]
+\;+\;\frac{\alpha}{2}\left[1-\cos\!\left(\frac{2\pi N_w (x+a)}{2a}\right)\right],
+\label{suppeq:yb}
+\end{equation}
+with $a=b=0.5$, $N_w=1$, and $x$ measured from the domain centre. The first term is the superelliptic relief and the second is the single-period undulation. In the lattice implementation the fluid domain is defined by a staircase mask that marks a cell as fluid or solid according to whether its centre lies above or below Eq.~\eqref{suppeq:yb}. This mask only selects the set of active nodes; the hydrodynamic no-slip condition is \emph{not} placed on the staircase interface but on the analytic wall~\eqref{suppeq:yb}, through the Bouzidi interpolated bounce-back described in Section~\ref{suppsec:lbm}: the crossing link is intersected analytically and the fractional distance $q$ to the wall sets the interpolation weights. The relative undulation amplitude is $\alpha=h/L$, where $h$ is the vertical displacement of the boundary and $L$ is the cavity width.
+
+The number of undulations is $N_w=1$ for all cases reported here, so the transitions $n=2\rightarrow4\rightarrow6\rightarrow8$ isolate the effect of the superellipse exponent at fixed undulation count. For $n=2$ the relief is a semicircle of radius $L/2$; as $n$ increases it flattens toward a square bottom with rounded corners.
+
+\subsection{Included configurations}
+
+Table~\ref{supptab:config} lists the parameter ranges and resolutions. The fluid area $A_f$ is not constant across $n$: it increases from $0.8927$ ($n=2$) to $0.9635$ ($n=4$), $0.9819$ ($n=6$), and $0.9892$ ($n=8$) at $\alpha=0$, and from $0.8427$ to $0.9135$, $0.9319$, and $0.9392$ at $\alpha=0.1$. The table gives the ranges of each parameter; it is not a full factorial of the cartesian product, because not every combination was simulated. The cases actually computed are listed case by case in the $N=384$ energetic dataset (Table~\ref{tab:full_scalars384}) and its resolution variants (Table~\ref{supptab:contrasts} and the resolution sweep); no additional cases are implied.
+
+\begin{table}[!htbp]
+\centering
+\caption{Parameter ranges and resolutions. All cases use the same nominal cavity dimensions; the bottom wall follows Eq.~\eqref{suppeq:yb}. The tabulated values define the ranges explored, not a full cartesian product; only the combinations listed in the energetic dataset were simulated.}
+\label{supptab:config}
+\begin{tabular}{@{}ll@{}}
+\hline
+Parameter & Values \\
+\hline
+Reynolds number, $Re$ & $100$, $400$, $1000$ \\
+Superellipse exponent, $n$ & $2$, $4$, $6$, $8$ \\
+Relative undulation amplitude, $\alpha$ & $0$, $0.1$ \\
+Grid resolution, $N$ & $128$, $256$, $384$ \\
+Number of undulations, $N_w$ & $1$ \\
+Semi-axes, $a=b$ & $0.5$ \\
+Nominal cavity height, $H$ & $1$ \\
+Lid velocity, $U_{\mathrm{lid}}$ & $1$ (unit) \\
+\hline
+Fluid area $A_f$, $\alpha=0$ & $0.8927$, $0.9635$, $0.9819$, $0.9892$ \\
+Fluid area $A_f$, $\alpha=0.1$ & $0.8427$, $0.9135$, $0.9319$, $0.9392$ \\
+\hline
+\end{tabular}
+\end{table}

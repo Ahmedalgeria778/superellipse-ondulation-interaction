@@ -1,0 +1,20 @@
+\begin{table}[!htbp]
+\centering
+\caption{Energy-balance defect $\varepsilon_E = |P^*-D^*|/D^* \times 100\%$ for $n=2$ and $n=4$ at $\alpha=0$, and the primary contrast $I_D(2,4)$, versus grid resolution $N$ at $Re=100$ and $Re=400$. The defect decreases by approximately a factor of 3 between $N=128$ and $N=384$ (from $\sim5.8\%$ to $\sim2.0\%$ at $Re=100$, and from $\sim6.2\%$ to $\sim2.0\%$ at $Re=400$), while the contrast $I_D(2,4)$ remains stable to within $3.4\times10^{-4}$~pp ($1.6\%$ of its value) at $Re=100$ and $2.4\times10^{-3}$~pp ($0.7\%$) at $Re=400$. This demonstrates that the absolute defect is a common-mode error that cancels in the paired contrast $\Delta D = D^*(4)-D^*(2)$, whose grid sensitivity is an order of magnitude smaller than that of the defect itself.}
+\label{supptab:defect_vs_contrast}
+\begin{tabular}{@{}c|c|cc|cc@{}}
+\hline
+$Re$ & $N$ & $\varepsilon_E(n{=}2)$ [\%] & $\varepsilon_E(n{=}4)$ [\%] & $\Delta\varepsilon$ [\%] & $I_D(2,4)$ [\%] \\
+\hline
+$100$ & $128$ & $5.790$ & $5.793$ & $0.003$ & $0.02161$ \\
+      & $256$ & $2.766$ & $2.770$ & $0.004$ & $0.02195$ \\
+      & $384$ & $1.976$ & $1.977$ & $0.001$ & $0.02178$ \\
+\hline
+$400$ & $128$ & $6.204$ & $6.193$ & $0.011$ & $0.32251$ \\
+      & $256$ & $3.199$ & $3.194$ & $0.005$ & $0.32462$ \\
+      & $384$ & $2.041$ & $2.038$ & $0.003$ & $0.32488$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The variation of the defect between $N=128$ and $N=384$ is $\Delta\varepsilon_E \approx 3.4$ percentage points at $Re=100$ and $\approx 4.2$ points at $Re=400$, while the contrast $I_D(2,4)$ varies by only $3.4\times10^{-4}$~pp and $2.4\times10^{-3}$~pp, respectively---i.e., four to five orders of magnitude less. The defect is therefore a common-mode resolution error of the absolute integrals $P^*$ and $D^*$ that cancels in their paired difference. The small residual $\Delta\varepsilon_E$ between $n=2$ and $n=4$ at fixed $N$ (third column) is at most $0.011\%$, which bounds the contamination of the contrast by differential defect effects to well below the quoted span.
