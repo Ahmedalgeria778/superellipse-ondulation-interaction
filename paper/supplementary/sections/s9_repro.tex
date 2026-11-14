@@ -3,4 +3,15 @@
 
 The scalar results are stored as JSON files in the directory \texttt{results/scalars/}, one file per converged simulation, and are consolidated into the table \texttt{scalars\_clean.csv} used for the figures and tables of the main text. Each JSON file contains the following fields: \texttt{Re}, \texttt{n}, \texttt{alpha}, \texttt{N}, \texttt{P\_star}, \texttt{D\_star}, \texttt{K\_star}, \texttt{fluid\_area}, \texttt{Ma}, \texttt{iters}, \texttt{residual}, \texttt{status}. The velocity fields are stored as NumPy \texttt{.npz} files in \texttt{results/fields/}, with arrays \texttt{ux}, \texttt{uy}, \texttt{rho}, \texttt{fluid} (boolean mask), and the grid coordinates \texttt{xc}, \texttt{yc}.
 
-All figures in the main manuscript and in this supplementary material were generated from these files using Python scripts with Matplotlib. The sign conventions, normalizations, and contrast definitions used in the scripts are exactly those stated in the main manuscript (Sections~II.E and~II.G). The complete scalar dataset, converged velocity field arrays, and post-processing scripts are available from the corresponding author upon reasonable request (and will be deposited in an open-access Zenodo repository upon publication).
+All figures in the main manuscript and in this supplementary material were generated from these files using Python scripts with Matplotlib. The sign conventions, normalizations, and contrast definitions used in the scripts are exactly those stated in the main manuscript (Sections~II.E and~II.G).
+
+\paragraph{Public repository and archived release.}
+The solver (MRT collision, pull streaming, half-way bounce-back, Bouzidi interpolated bounce-back, lid momentum injection), the geometry and diagnostic modules, the FEM Taylor--Hood solver, the campaign drivers, and all post-processing scripts are version-controlled at
+\begin{center}
+\url{https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction}
+\end{center}
+(MIT licence). The version corresponding to this manuscript is release \texttt{v1.0.0},
+\begin{center}
+\url{https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/tag/v1.0.0}
+\end{center}
+which distributes the raw converged LBM fields (242 \texttt{.npz}) and the native FEM fields (28 \texttt{.npz}) as the archive \texttt{superellipse\_lbm\_fem\_fields\_v1.0.zip}; the release page also lists the size and truncated SHA-256 of every file. The scalar budgets (\texttt{results/scalars/}, one JSON per converged run, consolidated in \texttt{scalars\_clean.csv}), the contrast tables, and the exact four-band $\mathrm{d}A/\mathrm{d}B$ partitions are stored in the repository and are the direct source of every number quoted in the article. A DOI-bearing Zenodo snapshot of the \texttt{v1.0.0} tree will be added upon acceptance; until then the tagged GitHub release is the citable, immutable version.

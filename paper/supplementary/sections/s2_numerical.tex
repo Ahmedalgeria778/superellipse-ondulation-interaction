@@ -2,20 +2,109 @@
 \label{suppsec:lbm}
 
 \subsection{MRT-LBM details}
+\label{suppsec:mrt-details}
 
-The D2Q9 lattice is used with nine discrete velocities. The distribution functions $f_i$ are transformed to moment space via the matrix $\mathbf{M}$, collided with the diagonal relaxation matrix $\mathbf{S}=\mathrm{diag}(s_0,s_1,\dots,s_8)$, and transformed back before streaming. The hydrodynamic moments use relaxation rates $s_0=0$, $s_1=1$, $s_3=s_5=1/\tau$, while the non-hydrodynamic moments are fixed at standard values for stability at low Mach number. The kinematic viscosity is related to the relaxation time by
+The D2Q9 lattice uses the nine discrete velocities $\mathbf{c}_i=(c_{ix},c_{iy})$ ordered as
 \begin{equation}
-\nu = c_s^2\left(\tau-\tfrac{1}{2}\right)\Delta t, \qquad c_s^2=\tfrac{1}{3}.
+(c_{ix},c_{iy})_{i=0,\dots,8}
+=(0,0),(1,0),(0,1),(-1,0),(0,-1),(1,1),(-1,1),(-1,-1),(1,-1),
 \end{equation}
-The lattice velocity is set from $U=(\tau-\tfrac12)\,Re/(3N)$, so that $Re=UN/\nu_{\mathrm{lat}}$ with $\nu_{\mathrm{lat}}=\tfrac13(\tau-\tfrac12)$. The lattice Mach number is $Ma=U/c_s$.
+with weights $W_0=\tfrac49$, $W_{1-4}=\tfrac19$, and $W_{5-8}=\tfrac1{36}$. The distribution functions $f_i$ are transformed to moment space by $\mathbf{m}=\mathbf{M}\mathbf{f}$, where $\mathbf{m}=(\rho,e,\varepsilon,j_x,q_x,j_y,q_y,p_{xx},p_{xy})^{\mathsf T}$ and
+\begin{equation}
+\mathbf{M}=
+\begin{pmatrix}
+ 1 &  1 &  1 &  1 &  1 &  1 &  1 &  1 &  1\\
+-4 & -1 & -1 & -1 & -1 &  2 &  2 &  2 &  2\\
+ 4 & -2 & -2 & -2 & -2 &  1 &  1 &  1 &  1\\
+ 0 &  1 &  0 & -1 &  0 &  1 & -1 & -1 &  1\\
+ 0 & -2 &  0 &  2 &  0 &  1 & -1 & -1 &  1\\
+ 0 &  0 &  1 &  0 & -1 &  1 &  1 & -1 & -1\\
+ 0 &  0 & -2 &  0 &  2 &  1 &  1 & -1 & -1\\
+ 0 &  1 & -1 &  1 & -1 &  0 &  0 &  0 &  0\\
+ 0 &  0 &  0 &  0 &  0 &  1 & -1 &  1 & -1
+\end{pmatrix}.
+\label{eq:Mmatrix}
+\end{equation}
+The corresponding equilibrium moments are, with $u^2=u_x^2+u_y^2$,
+\begin{equation}
+\mathbf{m}^{\rm eq}=
+\begin{pmatrix}
+\rho,\;-2\rho+3\rho u^2,\;\rho-3\rho u^2,\;\rho u_x,\;-\rho u_x,\;\rho u_y,\;-\rho u_y,\;\rho(u_x^2-u_y^2),\;\rho u_xu_y
+\end{pmatrix}^{\mathsf T}.
+\label{eq:meq}
+\end{equation}
+Collision is performed in moment space with the diagonal matrix
+\begin{equation}
+\mathbf{S}=\mathrm{diag}(s_0,\dots,s_8)
+=\mathrm{diag}\!\left(0,\;1.4,\;1.4,\;0,\;1.2,\;0,\;1.2,\;\frac{1}{\tau},\;\frac{1}{\tau}\right),
+\label{eq:Sdiag}
+\end{equation}
+as $\mathbf{m}^*=\mathbf{m}-\mathbf{S}\,(\mathbf{m}-\mathbf{m}^{\rm eq})$ followed by $\mathbf{f}^*=\mathbf{M}^{-1}\mathbf{m}^*$. The conserved moments $\rho$, $j_x$, and $j_y$ ($s_0=s_3=s_5=0$) are untouched, the two shear moments $p_{xx}$ and $p_{xy}$ relax at $s_7=s_8=1/\tau$, and the remaining kinetic (energy and energy-flux) moments relax at the fixed rates $1.4$ and $1.2$. The kinematic viscosity follows from the shear rate,
+\begin{equation}
+\nu = c_s^2\left(\tau-\tfrac{1}{2}\right)\Delta t, \qquad c_s^2=\tfrac{1}{3},
+\end{equation}
+and the lattice velocity is set from $U=(\tau-\tfrac12)\,Re/(3N)$, so that $Re=UN/\nu_{\mathrm{lat}}$ with $\nu_{\mathrm{lat}}=\tfrac13(\tau-\tfrac12)$. The lattice Mach number is $Ma=U/c_s$. Equations~\eqref{eq:Mmatrix}--\eqref{eq:Sdiag}, together with the boundary rules below, specify the collision and streaming operators completely.
 
-\subsection{Lid and curved-wall treatment}
+\subsection{Streaming, wall conditions, and lid forcing}
+
+Streaming is a pull operation, $f_i(\mathbf{x},t+\Delta t)=f_i^*(\mathbf{x}-\mathbf{c}_i\Delta t,t)$, evaluated only on fluid nodes. When the upstream node $\mathbf{x}-\mathbf{c}_i\Delta t$ is solid or lies outside the box, the incoming population is replaced by the half-way bounce-back value $f_i(\mathbf{x},t+\Delta t)=f_{\bar i}^*(\mathbf{x},t)$, where $\bar i$ is the index of $-\mathbf{c}_i$; this is applied on the two side walls and, as a fallback, on the lid.
 
 \paragraph{Curved bottom wall.}
-The bottom boundary is handled with Bouzidi interpolated bounce-back~\cite{Bouzidi2001}. For each fluid node adjacent to the boundary, the distance $q$ from the node to the wall along the lattice link is measured; the unknown population is reconstructed as a linear interpolation between the wall and the upstream node, weighted by $q$. This second-order treatment resolves the curved boundary without stair-step approximations.
+The bottom boundary uses Bouzidi interpolated bounce-back~\cite{Bouzidi2001}. For each fluid node $\mathbf{x}_f$ adjacent to the wall, the lattice link crossing $y_b(x)$ is intersected analytically and the fractional distance $q\in(0,1]$ from $\mathbf{x}_f$ to the wall, measured in units of $\Delta x$, is computed. With $\mathbf{x}_b=\mathbf{x}_f-\mathbf{c}_i\Delta t$ the next node along the link, the unknown population is reconstructed by the two linear branches
+\begin{equation}
+f_i(\mathbf{x}_f,t+\Delta t)=
+\begin{cases}
+2q\,f_{\bar i}^*(\mathbf{x}_f,t)+(1-2q)\,f_{\bar i}^*(\mathbf{x}_b,t), & q<\tfrac12,\\[4pt]
+\dfrac{1}{2q}\,f_{\bar i}^*(\mathbf{x}_f,t)+\dfrac{2q-1}{2q}\,f_i^*(\mathbf{x}_f,t), & q\ge\tfrac12.
+\end{cases}
+\label{eq:bouzidi}
+\end{equation}
+The staircase solid/fluid mask is used only to select active nodes; the no-slip condition itself is imposed at the analytic wall position through Eq.~\eqref{eq:bouzidi}.
 
 \paragraph{Moving lid.}
-The lid velocity is imposed using a smoothstep-smoothed momentum injection: the top-wall links receive a prescribed momentum consistent with the lid velocity, smoothed near the corners with a smoothstep profile of width $\varepsilon=0.02$. This is a link-based momentum forcing that reproduces the prescribed lid velocity while mitigating the corner singularity.
+The lid velocity is imposed by a link-based momentum injection on the two top-wall links $i=7$ and $i=8$,
+\begin{equation}
+f_7(\mathbf{x},t+\Delta t)=f_5^*(\mathbf{x},t)-6\,W_5\,\rho_w\,u_w,
+\qquad
+f_8(\mathbf{x},t+\Delta t)=f_6^*(\mathbf{x},t)+6\,W_6\,\rho_w\,u_w,
+\label{eq:lid}
+\end{equation}
+where $\rho_w$ is the density at the wall-adjacent node and $u_w=U g(x_j)$ with the smoothstep profile
+\begin{equation}
+g(x)=
+\begin{cases}
+3t^2-2t^3,\quad t=x/\varepsilon, & x<\varepsilon,\\
+1, & \varepsilon\le x\le 1-\varepsilon,\\
+3t^2-2t^3,\quad t=(1-x)/\varepsilon, & x>1-\varepsilon,
+\end{cases}
+\qquad \varepsilon=0.02 .
+\label{eq:lidprofile}
+\end{equation}
+This reproduces the prescribed lid velocity while removing the corner discontinuity. It is neither a Zou--He condition nor a regularization of the collision operator. The lid is spun up linearly from rest over the physical time $t^*=5$ ($t_{\rm ramp}=5/U$ lattice steps, $u_w^{(k)}=u_w\,k/t_{\rm ramp}$) before the steady-state iteration begins; the spin-up transient is discarded, and the reported fields are taken after the convergence criterion of Sec.~III.D of the main text is met.
+
+\subsection{Discrete energetic diagnostics}
+
+All integrals are evaluated on the fluid mask with $\Delta x=1/N$. With the velocity normalized by the lid speed $U_0$, the discrete forms are
+\begin{align}
+D^* &= 2\,\Delta x^2\sum_{\mathbf{x}\in\text{fluid}}
+\left(S_{11}^2+S_{22}^2+2S_{12}^2\right),
+\label{eq:Dstar-discrete}\\
+P^* &= \Delta x\sum_{j:\,\mathbf{x}_{N-1,j}\in\text{fluid}} U_{\mathrm{lid}}(x_j)\,
+\left.\frac{\partial u}{\partial y}\right|_{N-1,j},
+\label{eq:Pstar-discrete}\\
+K^* &= \tfrac12\,\Delta x^2\sum_{\mathbf{x}\in\text{fluid}}\left(u^2+v^2\right),
+\label{eq:Kstar-discrete}
+\end{align}
+with $S_{11}=\partial_xu$, $S_{22}=\partial_yv$, and $S_{12}=\tfrac12(\partial_yu+\partial_xv)$. In the interior, all derivatives are centered differences. At the lid ($i=N-1$) the normal derivatives use the prescribed wall velocity at the half-cell distance, $\partial_yu=(U_{\mathrm{lid}}-u)/(\tfrac12\Delta x)$ and $\partial_yv=-v/(\tfrac12\Delta x)$; at the side walls ($j=0,N-1$), $\partial_xu=-u/(\tfrac12\Delta x)$ and $\partial_xv=-v/(\tfrac12\Delta x)$; and at the curved bottom, for the lowest fluid node $i_0(j)$ of each column,
+\begin{equation}
+\left.\frac{\partial u}{\partial y}\right|_{i_0,j}=-\frac{u_{i_0,j}}{d_j},
+\qquad
+\left.\frac{\partial v}{\partial y}\right|_{i_0,j}=-\frac{v_{i_0,j}}{d_j},
+\qquad
+d_j=(i_0+\tfrac12)\Delta x-y_b(x_j).
+\label{eq:wallgrad}
+\end{equation}
+These are the exact discrete expressions used in the production diagnostics; the corresponding source files, together with the collision, streaming, and boundary routines, are available in the public repository (Sec.~\ref{suppsec:repro}).
 
 \subsection{Parameters by Reynolds number and resolution}
 

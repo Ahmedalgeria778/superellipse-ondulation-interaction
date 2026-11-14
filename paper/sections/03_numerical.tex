@@ -8,7 +8,7 @@ The solver employs a D2Q9 multiple-relaxation-time lattice Boltzmann method. The
 \begin{equation}
 \nu = c_s^2\left(\tau - \tfrac{1}{2}\right)\Delta t,
 \end{equation}
-where $c_s^2 = 1/3$ for the D2Q9 lattice. The relaxation rates for the non-hydrodynamic moments are chosen following standard MRT practice to enhance numerical stability; only the shear mode uses $\tau$, while the remaining rates are fixed at values appropriate for the low-Mach regime considered here.
+where $c_s^2 = 1/3$ for the D2Q9 lattice. The relaxation rates for the non-hydrodynamic moments are chosen following standard MRT practice to enhance numerical stability; only the shear modes use $\tau$, while the remaining rates are fixed at values appropriate for the low-Mach regime considered here. The complete $9\times9$ transformation matrix, the moment ordering, the equilibrium moments, and the nine relaxation rates are given in Sec.~II.A of the Supplemental Material, together with the streaming and boundary rules.
 
 The lattice velocity is set from $U=(\tau-\tfrac12)\,Re/(3N)$, so that the target Reynolds number fixes $\tau$ through $Re=UN/\nu_{\mathrm{lat}}$ with $\nu_{\mathrm{lat}}=\tfrac13(\tau-\tfrac12)$. Table~\ref{tab:params} lists the actual $(\tau,U,Ma)$ values for each $Re$ family; the lattice Mach number is not identical across the three Reynolds numbers because $\tau$ is chosen for numerical stability rather than to keep $Ma$ fixed.
 

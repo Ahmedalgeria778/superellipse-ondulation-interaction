@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software or the accompanying manuscript data, please cite the repository and the associated paper."
-title: "Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
+title: "Sub-extensive viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
+version: "1.0.0"
 authors:
   - name: "Ahmed Beniaiche"
     affiliation: "Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique, Algiers, Algeria"
@@ -19,7 +20,7 @@ preferred-citation:
   type: article
   authors:
     - name: "Ahmed Beniaiche"
-  title: "Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
+  title: "Sub-extensive viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
   journal: "Physics of Fluids"
   year: 2026
   note: "Manuscript prepared for submission; preprint version of this repository."

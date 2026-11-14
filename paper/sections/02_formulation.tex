@@ -70,7 +70,7 @@ The mechanical power supplied by the moving lid is
 \begin{equation}
 P = \int_{\Gamma_{\mathrm{lid}}} \mathbf{u}_w \cdot (\boldsymbol{\sigma}\cdot\mathbf{n})\, dS,
 \end{equation}
-where $\boldsymbol{\sigma}$ is the stress tensor, $\mathbf{n}$ the outward normal, and $\mathbf{u}_w$ the lid velocity. In the LBM implementation, $P$ is extracted directly from the momentum exchange at the lid links, which corresponds to the discrete counterpart of this integral.
+where $\boldsymbol{\sigma}$ is the stress tensor, $\mathbf{n}$ the outward normal, and $\mathbf{u}_w$ the lid velocity. For the incompressible flow considered here the tangential traction at the lid reduces to $\mu\,\partial u/\partial y$, so that $P=\mu\int_{\Gamma_{\mathrm{lid}}} U_{\mathrm{lid}}\,(\partial u/\partial y)\,dS$. This is the quantity evaluated in the solver from the discrete lid-normal velocity gradient (Sec.~II.C of the Supplemental Material); it is not a momentum-exchange tally.
 
 \paragraph{Viscous dissipation.}
 For a Newtonian incompressible fluid, the total viscous dissipation is
@@ -78,7 +78,7 @@ For a Newtonian incompressible fluid, the total viscous dissipation is
 D = 2\mu \int_{\Omega} \mathbf{S}:\mathbf{S}\, d\Omega, \qquad
 \mathbf{S} = \tfrac{1}{2}\left(\nabla\mathbf{u} + (\nabla\mathbf{u})^{\mathsf{T}}\right),
 \end{equation}
-with $\mu$ the dynamic viscosity and $\Omega$ the fluid domain. The velocity gradients are computed from the lattice distribution functions using central differences on the grid. The domain is two-dimensional with unit depth.
+with $\mu$ the dynamic viscosity and $\Omega$ the fluid domain. The velocity gradients are evaluated from the discrete velocity field, with central differences in the interior and one-sided differences combined with wall-distance corrections at the boundaries; the exact stencils are given in Sec.~II.C of the Supplemental Material. The domain is two-dimensional with unit depth.
 
 \paragraph{Kinetic energy.}
 The volume-integrated kinetic energy is
