@@ -89,7 +89,7 @@ At $Re=1000$, however, the trailing transitions do not vanish: $I_D(6,8)=-0.0037
 
 \begin{table}[t]
 \centering
-\caption{Matched dissipation and power contrasts at $N=384$, $\alpha=0$, expressed as percentages of the earlier configuration of each pair. The last three columns give the estimator discrepancy $\delta_{IP/ID}=100|I_P/I_D-1|$, the area-only extensive prediction, Eq.~\eqref{eq:area}, and the numerical uncertainty. Uncertainty is the span of the contrast itself over $N = 128$--$384$ at fixed ($Re$, transition). A contrast is treated as resolved when its magnitude exceeds its own span: this holds for every $(2,4)$ entry, for $(4,6)$ at $Re=400$ and $Re=1000$, and for $(6,8)$ at $Re=100$ and $Re=1000$, and fails for $(4,6)$ at $Re=100$ and $(6,8)$ at $Re=400$, which are therefore reported as upper bounds only (marked $\dagger$).}
+\caption{Matched dissipation and power contrasts at $N=384$, $\alpha=0$, expressed as percentages of the earlier configuration of each pair. The last three columns give the estimator discrepancy $\delta_{IP/ID}=100|I_P/I_D-1|$, the area-only extensive prediction, Eq.~\eqref{eq:area}, and the numerical uncertainty. Uncertainty is the span of the contrast itself over $N = 128$--$384$ at fixed ($Re$, transition). A contrast is treated as resolved when its magnitude exceeds its own span: this holds for every $(2,4)$ entry, for $(4,6)$ at $Re=400$ and $Re=1000$, and for $(6,8)$ at $Re=100$ and $Re=1000$, and fails for $(4,6)$ at $Re=100$ and $(6,8)$ at $Re=400$, which are therefore reported as upper bounds only (marked $\dagger$). ``n.m.'' indicates that the estimator ratio is not meaningful because both contrasts are at the level of $10^{-4}\%$ and the ratio is dominated by cancellation. The large $Re=100$, $(4,6)$ span ($1.15$~pp) reflects mixed Mach regimes on the coarse grids rather than grid convergence; see the note to Table~SM.X of the Supplementary Material.}
 \label{tab:contrasts}
 \begin{tabular}{@{}ccccccc@{}}
 \hline
@@ -100,7 +100,7 @@ $100$  & $(4,6)$ & $+0.00296$ & $+0.00264$ & $10.6$ & $+1.91$ & $1.15^{\dagger}$
 $100$  & $(6,8)$ & $+0.00042$ & $+0.00040$ & $4.5$  & $+0.75$ & $8.1\times 10^{-5}$ \\
 $400$  & $(2,4)$ & $+0.3249$ & $+0.3282$ & $1.0$  & $+7.93$ & $2.4\times 10^{-3}$ \\
 $400$  & $(4,6)$ & $+0.0129$ & $+0.0115$ & $10.3$ & $+1.91$ & $5.0\times 10^{-4}$ \\
-$400$  & $(6,8)$ & $+0.00006$& $-0.00015$& --     & $+0.75$ & $1.1\times 10^{-4}$\,$^{\dagger}$ \\
+$400$  & $(6,8)$ & $+0.00006$& $-0.00015$& n.m.    & $+0.75$ & $1.1\times 10^{-4}$\,$^{\dagger}$ \\
 $1000$ & $(2,4)$ & $+0.5909$ & $+0.6022$ & $1.9$  & $+7.93$ & $1.3\times 10^{-2}$ \\
 $1000$ & $(4,6)$ & $+0.0103$ & $+0.0062$ & $40.4$ & $+1.91$ & $4.1\times 10^{-4}$ \\
 $1000$ & $(6,8)$ & $-0.0037$ & $-0.0043$ & $15.6$ & $+0.75$ & $1.1\times 10^{-4}$ \\
@@ -195,7 +195,7 @@ Table~\ref{tab:claims_evidence} collects the main claims of this study, the evid
 \hline
 $I_D(2,4)>0$ at $Re=100,400,1000$ & $N=384$ values; spans & $3.4\times10^{-4}$, $2.4\times10^{-3}$, $1.4\times10^{-2}$~pp & Yes \\
 Hierarchy $|I(2,4)|\gg|I(4,6)|\gg|I(6,8)|$ & $N=384$ + per-transition spans & Own spans per transition & Yes at $Re=400,1000$; partial at $Re=100$ \\
-$\mathrm{d}B>0$ at all $Re$ & four bands at $N=128$--$512$ (Table~SM.XV) & positive on every grid; magnitude $\le3\%$ span & Yes (sign) \\
+$\mathrm{d}B>0$ at all $Re$ & four bands at $N=128$--$512$ (Table~SM.XV) & positive on every grid; grid span $\le9\%$ of magnitude & Yes (sign) \\
 $\mathrm{d}A$ changes sign near $Re\approx145$ & four bands at $N=128$--$512$ (Table~SM.XV) & sign stable across grids; magnitude up to $27\%$ at $Re=1000$ & Yes (sign) \\
 Sub-extensivity (factor 13--364) & $I_D$ vs $I_{D,\text{area}}$ & Dominated by $I_D$ uncertainty & Yes \\
 FEM--LBM cross-solver consistency & $nx=256$ vs $N=384$ & 0.002--0.008~pp & Consistency only \\
