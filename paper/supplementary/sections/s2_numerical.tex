@@ -15,7 +15,7 @@ The lattice velocity is set from $U=(\tau-\tfrac12)\,Re/(3N)$, so that $Re=UN/\n
 The bottom boundary is handled with Bouzidi interpolated bounce-back~\cite{Bouzidi2001}. For each fluid node adjacent to the boundary, the distance $q$ from the node to the wall along the lattice link is measured; the unknown population is reconstructed as a linear interpolation between the wall and the upstream node, weighted by $q$. This second-order treatment resolves the curved boundary without stair-step approximations.
 
 \paragraph{Moving lid.}
-The lid velocity is imposed using a regularized momentum injection: the top-wall links receive a prescribed momentum consistent with the lid velocity, smoothed near the corners with a smoothstep profile of width $\varepsilon=0.02$. This is a link-based momentum forcing that reproduces the prescribed lid velocity while mitigating the corner singularity.
+The lid velocity is imposed using a smoothstep-smoothed momentum injection: the top-wall links receive a prescribed momentum consistent with the lid velocity, smoothed near the corners with a smoothstep profile of width $\varepsilon=0.02$. This is a link-based momentum forcing that reproduces the prescribed lid velocity while mitigating the corner singularity.
 
 \subsection{Parameters by Reynolds number and resolution}
 

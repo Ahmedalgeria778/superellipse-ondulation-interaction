@@ -1,6 +1,6 @@
 # Superelliptic bottom-shaping vs. lid-driven-cavity dissipation
 
-**Bottom-wall shaping redistributes rather than adds viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis.**
+**Sub-extensive viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis.**
 
 Reproducible source code, manuscript, figures and derived results for the study of how a
 superelliptic bottom family interacts with a local bed undulation in a lid-driven cavity,

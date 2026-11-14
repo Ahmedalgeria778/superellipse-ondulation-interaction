@@ -58,7 +58,7 @@ where the Reynolds number is $Re = U_{\mathrm{lid}} L/\nu$ and $\nu$ is the kine
 \subsection{Boundary conditions}
 \label{subsec:bc}
 
-The moving lid is prescribed with a regularized velocity profile: the lid velocity is constant across the bulk of the top wall and is smoothed near the two top corners using a smoothstep with transition parameter $\varepsilon=0.02$, reducing the singularity at the corners. The side walls and the curved bottom wall satisfy the no-slip condition via interpolated bounce-back, described in Section~\ref{sec:numerical}. The distinction between physical boundary conditions and their discrete lattice realization is discussed separately below.
+The moving lid is prescribed with a smoothstep-smoothed (corner-smoothed) velocity profile: the lid velocity is constant across the bulk of the top wall and is smoothed near the two top corners using a smoothstep with transition parameter $\varepsilon=0.02$, reducing the singularity at the corners. The side walls and the curved bottom wall satisfy the no-slip condition via interpolated bounce-back, described in Section~\ref{sec:numerical}. The distinction between physical boundary conditions and their discrete lattice realization is discussed separately below.
 
 \subsection{Energetic measures}
 \label{subsec:energetics}
