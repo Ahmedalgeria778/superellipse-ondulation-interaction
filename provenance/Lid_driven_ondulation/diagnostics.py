@@ -33,7 +33,7 @@ FNEQ_ENABLED = _os.environ.get("LBM_DIAG_FNEQ", "0") == "1"
 FNEQ_INTERIOR = int(_os.environ.get("LBM_DIAG_FNEQ_INTERIOR", "0"))
 
 
-def _gradients(U, V, geom, U_lid_norm):
+def _gradients(U, V, geom, U_lid_norm, wallgrad_order=1):
     """Velocity gradient components, with wall correction."""
     N = geom["N"]
     d = geom["dx"]
@@ -48,8 +48,18 @@ def _gradients(U, V, geom, U_lid_norm):
     # --- lid (i = N-1), wall 0.5*d above the node ---
     for j in range(N):
         if fluid[N - 1, j]:
-            dudy[N - 1, j] = (U_lid_norm[j] - U[N - 1, j]) / (0.5 * d)
-            dvdy[N - 1, j] = (0.0 - V[N - 1, j]) / (0.5 * d)
+            if wallgrad_order == 2:
+                # second-order one-sided reconstruction using wall value and
+                # the two nearest interior nodes (distances 0.5d and 1.5d)
+                u0 = U[N - 1, j]
+                u1 = U[N - 2, j] if (N - 2 >= 0 and fluid[N - 2, j]) else u0
+                dudy[N - 1, j] = ((4.0 / 3.0) * U_lid_norm[j]
+                                 - u0
+                                 - (1.0 / 3.0) * u1) / d
+                dvdy[N - 1, j] = (0.0 - V[N - 1, j]) / (0.5 * d)  # unchanged (wall vy=0)
+            else:
+                dudy[N - 1, j] = (U_lid_norm[j] - U[N - 1, j]) / (0.5 * d)
+                dvdy[N - 1, j] = (0.0 - V[N - 1, j]) / (0.5 * d)
 
     # --- side walls (j = 0 and j = N-1), wall at 0.5*d ---
     for i in range(N):
@@ -234,15 +244,19 @@ def compute_diagnostics_fields(ux, uy, geom, U_lid_norm,
                                h_over_H=None, Nw=None, lid=None, eps_lid=0.02,
                                U_ref=1.0, tau=None, Ma=None, rho=None,
                                ma_threshold=0.1,
-                               mass_drift=None, last_residual=None):
+                               mass_drift=None, last_residual=None,
+                               wallgrad_order=None, volfrac=False):
     """Diagnostics from fields ux, uy (dimensionless with respect to U0) and geom."""
+    import os as _os
+    if wallgrad_order is None:
+        wallgrad_order = int(_os.environ.get("LBM_DIAG_WALLGRAD_ORDER", "1"))
     N = geom["N"]
     d = geom["dx"]
     fluid = geom["fluid"].astype(bool)
     U = np.where(fluid, ux, 0.0)
     V = np.where(fluid, uy, 0.0)
 
-    dudx, dudy, dvdx, dvdy, fluid, solid = _gradients(U, V, geom, U_lid_norm)
+    dudx, dudy, dvdx, dvdy, fluid, solid = _gradients(U, V, geom, U_lid_norm, wallgrad_order=wallgrad_order)
     omega = dvdx - dudy
     psi = streamfunction(U, geom)
 
@@ -252,14 +266,39 @@ def compute_diagnostics_fields(ux, uy, geom, U_lid_norm,
     #   D*  = 2 int S*:S* dA*            (= D_nu / (mu U0^2))
     #   P*  = int U*_lid (du*/dy*)|lid dx*
     S11, S22, S12 = dudx, dvdy, 0.5 * (dudy + dvdx)
-    Dstar = float(np.sum(2.0 * (S11 ** 2 + S22 ** 2 + 2.0 * S12 ** 2)[fluid]) * d * d)
+    # cell weights: cell-centre mask (default) or volume fraction of fluid
+    weights = np.ones((N, N))
+    if volfrac:
+        yb = np.asarray(geom["yb"])
+        if yb.size != N * N:
+            yb = np.broadcast_to(yb.ravel(), (N, N))
+        else:
+            yb = yb.reshape(N, N)
+        for i in range(N):
+            for j in range(N):
+                y_lo = i * d
+                y_hi = (i + 1) * d
+                ywall = float(yb[i, j])
+                frac = (y_hi - max(y_lo, ywall)) / d
+                frac = min(1.0, max(0.0, frac))
+                weights[i, j] = frac
+    cellmask = fluid & (weights > 0)
+    Dstar = float(np.sum((2.0 * (S11 ** 2 + S22 ** 2 + 2.0 * S12 ** 2) * weights)[cellmask]) * d * d)
     K = float(0.5 * np.sum((U ** 2 + V ** 2)[fluid]) * d * d)
     Z = float(np.sum((omega ** 2)[fluid]) * d * d)
 
+    # P* uses the production (first-order) lid gradient so that P* stays
+    # canonical and comparable to the FEM values regardless of wallgrad_order.
+    dudy_P = dudy
+    if wallgrad_order != 1:
+        dudy_P = dudy.copy()
+        for j in range(N):
+            if fluid[N - 1, j]:
+                dudy_P[N - 1, j] = (U_lid_norm[j] - U[N - 1, j]) / (0.5 * d)
     P = 0.0
     for j in range(N):
         if fluid[N - 1, j]:
-            P += U_lid_norm[j] * dudy[N - 1, j]
+            P += U_lid_norm[j] * dudy_P[N - 1, j]
     P = float(P * d)
 
     area = float(fluid.sum()) * d * d
