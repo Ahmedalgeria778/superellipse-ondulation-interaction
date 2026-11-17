@@ -305,12 +305,19 @@ fins n'est pas atteint (0.87 % sur `D*`) et n'est revendiqué nulle part.
   parallèle. Journaux : `results/logs/watch_Re400_N768_n{2,4}.log` et
   `results/logs/se_n{2,4}_w0.00_Nw1_Re400_N768_tol1e-08.log` ; checkpoints
   toutes les 200 000 itérations dans `results/ckpt/`.
+- LBM `N=768`, `Re=1000`, `alpha=0`, `n=2` et `n=4` : **lancés le
+  2026-11-17 à 11:53**, dans la foulée des cas `Re=400`, avec le même
+  protocole sans plafond (`tol=1e-8`, `max_iter=1e8`) et les mêmes
+  superviseurs. Au 2026-11-17 11:56, la rampe de couvercle est terminée dans
+  les deux journaux (`results/logs/se_n{2,4}_w0.00_Nw1_Re1000_N768_tol1e-08.log`)
+  mais le premier point de mesure `it=20000` n'est pas encore atteint : le
+  débit et l'ETA ne seront connus qu'après cette première ligne. Quatre
+  superviseurs et leurs quatre processus solveurs sont actifs simultanément.
+  Ce calcul étend le test de résolution au Reynolds le plus élevé, où le
+  span est déjà le plus large (`1.4e-2` pp sur `N=128-384`).
 
 ### Non lancés (perspectives, explicitement étiquetés)
 
-- LBM `N=768` à `Re=1000` : non lancé (~120 h estimées). Il étendrait le
-  test de résolution au Reynolds le plus élevé, où le span est déjà le plus
-  large (`1.4e-2` pp).
 - Limite 2D à `Re=1000` : explicitée dans le manuscrit, non quantifiée par un
   calcul 3D.
 - Crossover `Re ≈ 346` : exploratoire, présenté comme tel.
