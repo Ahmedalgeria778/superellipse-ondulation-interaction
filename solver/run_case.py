@@ -59,7 +59,7 @@ def run_one(n, alpha, Nw, Re, N, a=0.5, b=0.5, H=1.0, max_iter=300000,
         ck = _ck
         ckpt_path = os.path.join(ck.CKPT_DIR, cid + ".npz")
     t0 = time.time()
-    log_fh = open(log_path, "w", encoding="utf-8") if log_path else None
+    log_fh = open(log_path, "w", encoding="utf-8", buffering=1) if log_path else None
     try:
         s = CombinedMRT(Re=Re, N=N, n=n, alpha=alpha, Nw=Nw, a=a, b=b, H=H,
                         lid=lid, max_iter=max_iter, tol=tol, verbose=verbose,
@@ -70,6 +70,9 @@ def run_one(n, alpha, Nw, Re, N, a=0.5, b=0.5, H=1.0, max_iter=300000,
             if f0 is not None:
                 s.f_init = f0
                 resumed = True
+            # A resumed state is already spun up: do not replay the lid ramp
+            # (it would brake the field and restart the transient).
+            s.skip_ramp = bool(resumed)
             ck.activate(cid, ckpt_path)
         try:
             s.run()

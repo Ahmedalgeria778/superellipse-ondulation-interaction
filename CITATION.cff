@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this software or the accompanying manuscript data, please cite the repository and the associated paper."
 title: "Sub-extensive viscous dissipation in a lid-driven cavity: a superelliptic energy-budget analysis"
-version: "1.0.0"
+version: "1.1.0"
 authors:
   - name: "Ahmed Beniaiche"
     affiliation: "Laboratory of Fluid Mechanics, Ecole Militaire Polytechnique, Algiers, Algeria"
-date-released: 2026-10-29
+date-released: 2026-11-17
 repository: "https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction"
 license: MIT
 keywords:

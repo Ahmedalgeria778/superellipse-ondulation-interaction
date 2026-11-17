@@ -47,7 +47,11 @@ def rec(n, a, Re, N):
     if not os.path.exists(f):
         return None
     with open(f, encoding="utf-8") as fh:
-        return json.load(fh)
+        d = json.load(fh)
+    # never plot a run that stopped on max_iter (e.g. a capped pilot)
+    if d.get("status") not in (None, "converged"):
+        return None
+    return d
 
 
 def contrast(n_a, n_b, a, Re, N, key="D_star"):
@@ -61,8 +65,10 @@ def contrast(n_a, n_b, a, Re, N, key="D_star"):
 def fig6():
     fig, axes = plt.subplots(1, 3, figsize=(11.5, 3.9))
     for ax, Re in zip(axes, RE_FIXED):
+        # the Re=100 series has the converged N=768 extension
+        levels = NS_FIXED + ((768,) if Re == 100 else ())
         ys, xs = [], []
-        for N in NS_FIXED:
+        for N in levels:
             v = contrast(2, 4, 0.0, Re, N)
             if v is not None:
                 xs.append(N)
@@ -71,9 +77,12 @@ def fig6():
         for x, y in zip(xs, ys):
             ax.annotate("%.4f" % y, (x, y), textcoords="offset points",
                         xytext=(0, 8), ha="center", fontsize=7.5)
+        lo, hi = min(ys), max(ys)
+        span = (hi - lo) or abs(hi) * 1e-3
+        ax.set_ylim(lo - 0.20 * span, hi + 0.20 * span)
         ax.set_xscale("log", base=2)
-        ax.set_xticks(list(NS_FIXED))
-        ax.set_xticklabels([str(N) for N in NS_FIXED])
+        ax.set_xticks(list(levels))
+        ax.set_xticklabels([str(N) for N in levels])
         ax.set_xlabel("grid $N$")
         ax.set_ylabel(r"$I_D(2,4)$  $[\%]$")
         ax.set_title(r"$Re=%d$" % Re)

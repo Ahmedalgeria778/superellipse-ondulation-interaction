@@ -3,7 +3,7 @@
 extract_dAdB_multires_v2.py
 ===========================
 Four-band dA/dB partition of the (n=4)-(n=2) dissipation contrast at alpha=0,
-for N in {128, 256, 384, 512}, Re in {100, 400, 1000}.
+for N in {128, 256, 384, 512, 768}, Re in {100, 400, 1000}.
 
 REUSES the authoritative machinery from solver/referee_mech_analysis.py
 (build_combined_geometry + diss_density, which use the `fluid` mask and the
@@ -31,7 +31,7 @@ A, B = 0.5, 0.5
 LID_FRAC = 0.10      # top 10%  -> Y >= 1 - 0.10
 BOTTOM_TH = 0.10     # Y < yb + 0.10
 SIDE_TH = 0.10       # X < 0.10 or X > 0.90
-RES = [128, 256, 384, 512]
+RES = [128, 256, 384, 512, 768]
 RES_ALL = [100, 400, 1000]
 
 
@@ -121,6 +121,8 @@ def main():
         for N in RES:
             if N == 512 and Re == 100:
                 continue
+            if N == 768 and Re != 100:
+                continue  # N=768 fields exist only at Re=100
             if N == 384:
                 continue  # already have
             r = partition(N, Re)

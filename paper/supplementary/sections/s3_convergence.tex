@@ -64,18 +64,18 @@ As an independent verification of the energetic contrasts with a different discr
 
 The independent finite-element calculations provide a cross-solver consistency check. At the finest available resolutions the finite-element and lattice-Boltzmann dissipation contrasts differ by approximately $0.002$ percentage points ($I_D(2,4)=+0.323\%$ at $nx=256$ versus $+0.325\%$ at $N=384$). The finite-element estimates span $0.023$ percentage points across the three meshes ($+0.346\%$, $+0.332\%$, $+0.323\%$ at $nx=64,128,256$), so the two solvers agree within the finite-element mesh spread (Table~\ref{supptab:crosscheck}). Across this section the FEM serves as a cross-solver consistency check for the contrast, at $Re=400$ and (Section below) at $Re=1000$. On the matched finest grids (FEM $nx=256$, LBM $N=384$) the absolute levels agree to a few percent ($K^*: +1.1\%$, $D^*: +2.0\%$, $P^*: +4.1\%$), and all three contrasts agree to within $0.02$ percentage point ($I_K: 0.019$~pt, $I_P: 0.008$~pt, $I_D: 0.002$~pt). The larger $P^*$ offset combines the coarser resolution of the lid shear layer at $N=384$ with the residual $2\%$ lattice-Boltzmann power--dissipation imbalance at that grid; both are grid effects that cancel in the paired contrast, exactly as the main text argues.
 
-\emph{Cross-check at $Re=1000$.} The two coarser meshes were also run at $Re=1000$, where the primary contrast is an order of magnitude larger than at $Re=400$. The native finite-element contrast is $+0.716\%$ at $nx=64$ and $+0.598\%$ at $nx=128$, against $+0.5909\%$ at $N=384$ in the lattice-Boltzmann production set: the finer mesh differs by $0.008$ percentage point, or $1.3\%$ in relative terms, and the sequence moves toward the lattice-Boltzmann value under refinement. The native energy balance of these runs closes to $+0.41\%$ ($n=2$) and $+0.21\%$ ($n=4$) at $nx=64$ and to $+0.16\%$ and $+0.15\%$ at $nx=128$. The $nx=256$ mesh was not attempted at $Re=1000$: a single case commits about $9$~GB for the sparse assembly, which cannot be accommodated on this node while the lattice-Boltzmann campaigns are running. The finite-element variation across its own two meshes at this Reynolds number ($0.117$ percentage point) brackets the finest-grid finite-element--lattice-Boltzmann gap ($0.008$ percentage point), so this second comparison is a cross-solver consistency check of the same kind as at $Re=400$.
+\emph{Cross-check at $Re=1000$.} All three meshes were run at $Re=1000$, where the primary contrast is an order of magnitude larger than at $Re=400$. The native finite-element contrast is $+0.716\%$ at $nx=64$, $+0.598\%$ at $nx=128$ and $+0.593\%$ at $nx=256$, against $+0.5909\%$ at $N=384$ in the lattice-Boltzmann production set: the finest mesh differs by $0.002$ percentage point, or $0.3\%$ in relative terms. The native energy balance closes to $+0.41\%$ ($n=2$) and $+0.21\%$ ($n=4$) at $nx=64$, to $+0.16\%$ and $+0.15\%$ at $nx=128$, and to $1.1\times10^{-4}$ and $6.8\times10^{-5}$ at $nx=256$. The two finest meshes differ by $0.051\%$ ($n=2$) and $0.056\%$ ($n=4$) in the absolute $D^*$, below the $0.2\%$ two-finest-grid criterion, but the $64\to128\to256$ sequence is not monotone ($+0.716\%\to+0.598\%\to+0.593\%$), so it does not by itself establish an asymptotic order. The finite-element variation across its own meshes at this Reynolds number ($0.123$ percentage point, from $nx=64$ to $nx=256$) brackets the finest-grid finite-element--lattice-Boltzmann gap ($0.002$ percentage point), so this second comparison remains a cross-solver consistency check of the same kind as at $Re=400$, not a convergence proof.
 
 \begin{table}[!htbp]
 \centering
-\caption{Independent-solver cross-validation at $Re=400$ and $Re=1000$, $\alpha=0$: Taylor--Hood FEM (native, $nx=ny=64/128/256$) versus the MRT-LBM ($N=128/256/384$). Top: mesh sensitivity of the native finite-element dissipation contrast $I_D(2,4)$ at both Reynolds numbers; the $nx=256$ finite-element mesh was not run at $Re=1000$, where the memory cost of the sparse assembly exceeds the budget available during the lattice-Boltzmann campaigns. Bottom: absolute $n=2$ reference values and the geometric contrasts, on the finest grids of each solver (FEM $nx=256$, LBM $N=384$). All finite-element entries are native (element-wise integrals, no projection); the LBM-grid-projected finite-element contrasts are $+6.1\%$ ($Re=400$, $nx=64$), $+2.0\%$ ($Re=400$, finest native mesh), $+32.6\%$ and $+11.8\%$ ($Re=1000$, $nx=64$ and $128$), and are not used in any comparison.}
+\caption{Independent-solver cross-validation at $Re=400$ and $Re=1000$, $\alpha=0$: Taylor--Hood FEM (native, $nx=ny=64/128/256$) versus the MRT-LBM ($N=128/256/384$). Top: mesh sensitivity of the native finite-element dissipation contrast $I_D(2,4)$ at both Reynolds numbers. Bottom: absolute $n=2$ reference values and the geometric contrasts, on the finest grids of each solver (FEM $nx=256$, LBM $N=384$). All finite-element entries are native (element-wise integrals, no projection); the LBM-grid-projected finite-element contrasts are $+6.1\%$ ($Re=400$, $nx=64$), $+2.0\%$ ($Re=400$, finest native mesh), $+32.6\%$ and $+11.8\%$ ($Re=1000$, $nx=64$ and $128$), and are not used in any comparison.}
 \label{supptab:crosscheck}
 \begin{tabular}{@{}lcccc@{}}
 \hline
 $nx$ & $64$ & $128$ & $256$ & LBM $N=384$ \\
 \hline
 $I_D(2,4)$ [\%], $Re=400$  & $+0.346$ & $+0.332$ & $+0.323$ & $+0.325$ \\
-$I_D(2,4)$ [\%], $Re=1000$ & $+0.716$ & $+0.598$ & --- & $+0.591$ \\
+$I_D(2,4)$ [\%], $Re=1000$ & $+0.716$ & $+0.598$ & $+0.593$ & $+0.591$ \\
 \hline
 \end{tabular}
 
@@ -98,18 +98,27 @@ $I_D(2,4)$              & $+0.323\%$ & $+0.325\%$ & $0.002$~pt \\
 
 \begin{table}[!htbp]
 \centering
-\caption{Native finite-element mesh-refinement study at $Re=400$, $\alpha=0$: absolute $n=2$ and $n=4$ values of $K^*$, $P^*$, $D^*$ and the native energy balance $P^*/D^*-1$, together with the exact mesh fluid area against the analytic superellipse area ($A_f=0.892699$ for $n=2$, $0.963519$ for $n=4$). The balance stays within $0.22\%$ at all meshes and reaches $0.01\%$ on the finest mesh, and the mesh fluid area approaches the analytic superellipse area under refinement.}
+\caption{Native finite-element mesh-refinement study at $Re=400$ and $Re=1000$, $\alpha=0$: absolute $n=2$ and $n=4$ values of $K^*$, $P^*$, $D^*$ and the native energy balance $P^*/D^*-1$, together with the exact mesh fluid area against the analytic superellipse area ($A_f=0.892699$ for $n=2$, $0.963519$ for $n=4$). The balance stays within $0.22\%$ at $Re=400$ and within $0.41\%$ at $Re=1000$, and reaches $0.01\%$ on the finest mesh at both Reynolds numbers; the mesh fluid area approaches the analytic superellipse area under refinement.}
 \label{supptab:femconv}
 \begin{tabular}{@{}lcccccc@{}}
 \hline
 $n$ & $nx$ & $K^*$ & $P^*$ & $D^*$ & $P^*/D^*-1$ & $A_f^{\mathrm{mesh}}$ \\
 \hline
+\multicolumn{7}{@{}l}{$Re=400$} \\
 2 & 64  & $0.040420$ & $23.804$ & $23.819$ & $-0.06\%$ & $0.891888$ \\
 2 & 128 & $0.040434$ & $23.960$ & $23.908$ & $+0.22\%$ & $0.892412$ \\
 2 & 256 & $0.040440$ & $23.899$ & $23.896$ & $+0.01\%$ & $0.892598$ \\
 4 & 64  & $0.040702$ & $23.872$ & $23.901$ & $-0.12\%$ & $0.960547$ \\
 4 & 128 & $0.040729$ & $24.038$ & $23.987$ & $+0.21\%$ & $0.962268$ \\
 4 & 256 & $0.040744$ & $23.975$ & $23.973$ & $+0.01\%$ & $0.962993$ \\
+\hline
+\multicolumn{7}{@{}l}{$Re=1000$} \\
+2 & 64  & $0.04413$ & $32.246$ & $32.116$ & $+0.41\%$ & $0.891888$ \\
+2 & 128 & $0.04414$ & $32.270$ & $32.218$ & $+0.16\%$ & $0.892412$ \\
+2 & 256 & $0.04414$ & $32.205$ & $32.202$ & $+0.01\%$ & $0.892598$ \\
+4 & 64  & $0.04431$ & $32.412$ & $32.346$ & $+0.21\%$ & $0.960547$ \\
+4 & 128 & $0.04435$ & $32.459$ & $32.411$ & $+0.15\%$ & $0.962268$ \\
+4 & 256 & $0.04437$ & $32.395$ & $32.393$ & $+0.01\%$ & $0.962993$ \\
 \hline
 \end{tabular}
 \end{table}

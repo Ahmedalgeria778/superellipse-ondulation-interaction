@@ -184,3 +184,23 @@ $0.208333$ & $0.361$ & $0.700$ & $0.900$ & $-2.611$ & $0.32270$ \\
 \hline
 \end{tabular}
 \end{table}
+
+The same fixed-$(Re,N)$ test was repeated at $Re=100$ and $Re=1000$ (Table~\ref{supptab:ma_low_high}). At $Re=100$, $N=128$, a factor-eight change of $Ma$ ($0.0226\to0.1804$) moves the absolute $D^*$ by $1.3\%$ but the matched contrast by only $3.0\times10^{-4}$ percentage points, i.e.\ $1.4\%$ of its value; at $N=256$ the contrast spread falls to $0.4\%$. At $Re=1000$, $N=128$, the same factor-eight $Ma$ range moves $D^*$ by $0.7\%$ and the contrast by $9\times10^{-3}$ points ($1.5\%$). The contrast is therefore controlled by the geometry rather than by compressibility at all three Reynolds numbers, even though the absolute integrals at $N\le256$ retain a Mach-dependent error of up to $1.4\%$.
+
+The \emph{direction} of the residual $Ma$ trend is also informative for the resolution study. At $Re=100$ the contrast increases with $Ma$ ($+0.02150\%$ at $Ma=0.0226$ to $+0.02180\%$ at $Ma=0.1804$); refining the grid from $N=384$ to $N=768$ instead \emph{decreases} $Ma$ ($0.0226\to0.0113$). A Mach effect would therefore lower, not raise, the contrast at $N=768$, and its magnitude is an order of magnitude smaller than the change actually observed. The residual $N=384\to768$ displacement of the contrast is consequently a grid/convergence effect in the common-region redistribution, not a compressibility effect (Section~\ref{suppsec:richardson}).
+
+\begin{table}[!htbp]
+\centering
+\caption{Mach sensitivity of the matched primary contrast at fixed $(Re,N)$ for $Re=100$ and $Re=1000$; the $Re=400$ factorial is Table~\ref{supptab:fitma}. At each $(Re,N)$ the lattice speed is varied by a factor eight and $\tau=\tfrac12+3UN/Re$ follows, with both $n=2$ and $n=4$ recomputed at every $(U,\tau)$. Columns: Mach range, relative change of the absolute $D^*$ over that range, range of $I_D(2,4)$, and its spread relative to its mean. Only converged cases are used; the $Ma=0.060$ point at $Re=1000$, $N=256$ stopped on \texttt{max\_iter} and is excluded, so that row covers a factor four in $Ma$.}
+\label{supptab:ma_low_high}
+\begin{tabular}{@{}cccccc@{}}
+\hline
+$Re$ & $N$ & $Ma$ range & $\Delta D^*/D^*$ & $I_D(2,4)$ range [\%] & rel.\ spread \\
+\hline
+$100$  & $128$ & $0.0226$--$0.1804$ & $1.3\%$ & $+0.02150$--$+0.02180$ & $1.4\%$ \\
+$100$  & $256$ & $0.0226$--$0.1804$ & $1.4\%$ & $+0.02188$--$+0.02197$ & $0.4\%$ \\
+$1000$ & $128$ & $0.0601$--$0.4811$ & $0.7\%$ & $+0.57607$--$+0.58497$ & $1.5\%$ \\
+$1000$ & $256$ & $0.1203$--$0.4811$ & $0.2\%$ & $+0.58787$--$+0.59639$ & $1.4\%$ \\
+\hline
+\end{tabular}
+\end{table}

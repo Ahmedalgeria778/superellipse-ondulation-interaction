@@ -170,6 +170,10 @@ class WavyMRT:
         self.tol = float(tol)
         self.verbose = verbose
         self.log = log
+        # Opt-in flag: a run restarted from a saved field must NOT replay the
+        # lid spin-up ramp, which would brake the already spun-up field and
+        # restart the transient. Default False = historical behaviour.
+        self.skip_ramp = False
 
         # --- LBM scaling (plan 5.2) ---
         if target_tau is None:
@@ -241,10 +245,13 @@ class WavyMRT:
         self.conv_hist = []
 
         # lid spin-up over t* = 5 (plan 3.3), smooth ramp
-        ramp_iters = int(round(5.0 / self.U_ref / 1.0))
-        ramp_iters = max(ramp_iters, 1)
+        if getattr(self, "skip_ramp", False) and self.f_init is not None:
+            ramp_iters = 0
+        else:
+            ramp_iters = max(int(round(5.0 / self.U_ref / 1.0)), 1)
         if self.verbose and self.log:
             self.log.write(f"   lid ramp: {ramp_iters} steps (t*=5)\n")
+            self.log.flush()
         self.U_lid2d = (self.U_lid_norm)[None, :]
         for k in range(ramp_iters):
             amp = (k + 1) / ramp_iters

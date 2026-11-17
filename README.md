@@ -120,16 +120,16 @@ reference. Tables are numbered `SM.I–SM.XIX` and figures `SM.1–SM.6` in the 
 
 ## Data availability
 
-Raw converged velocity-field arrays (242 LBM `.npz`) and native FEM fields (28 `.npz`),
-together ≈ 278 MB, are distributed as a **GitHub Release asset** rather than inside the git
-tree, so that `git clone` stays lightweight:
+Raw converged velocity-field arrays (244 LBM `.npz`) and FEM fields (34 `.npz`, native plus
+grid-sampled), together ≈ 287 MB, are distributed as a **GitHub Release asset** rather than
+inside the git tree, so that `git clone` stays lightweight:
 
-- Release: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/tag/v1.0.0>
-- Direct download: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/download/v1.0.0/superellipse_lbm_fem_fields_v1.0.zip>
+- Release: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/tag/v1.1.0>
+- Direct download: <https://github.com/Ahmedalgeria778/superellipse-ondulation-interaction/releases/download/v1.1.0/superellipse_lbm_fem_fields_v1.1.zip>
 
-The archive (`superellipse_lbm_fem_fields_v1.0.zip`) contains `fields/`, `fem/`, a
-`DATA_README.md` (file naming convention and npz keys) and a `MANIFEST.txt` (size + truncated
-SHA-256 per file). All version-controlled `results/` content in this repository (scalar
+The archive (`superellipse_lbm_fem_fields_v1.1.zip`, 278 files) contains `fields/`, `fem/`, a
+`DATA_README.md` (file naming convention and npz keys) and a `MANIFEST.txt` (byte size and full
+64-hex SHA-256 per file). All version-controlled `results/` content in this repository (scalar
 budgets, contrast tables, band partitions, audit JSON) is derived directly from the paper's
 reported numbers. To regenerate the raw fields instead, re-run the campaign with the scripts
 above.
