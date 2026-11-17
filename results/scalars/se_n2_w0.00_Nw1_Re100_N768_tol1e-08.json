@@ -25,5 +25,6 @@
   "tol": 1e-08,
   "U_ref": 0.006510416666666668,
   "target_tau": 0.65,
-  "resumed": true
+  "resumed": false,
+  "iters_note": "single uninterrupted process: the log records the full 768-step lid ramp, so no checkpoint was restored"
 }

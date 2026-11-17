@@ -111,10 +111,18 @@ pour les conclusions. Le Mach n'est pas la cause du déplacement
 | 384 | 17.915213 | 17.919115 | +0.021785 % |
 | 768 | 18.070223 | 18.074257 | **+0.022323 %** |
 
-`n=2`, `N=768` : convergé, résidu `9.713e-9`, `1 172 000` itérations.
-`n=4`, `N=768` : convergé, résidu `9.889e-9`, `1 778 000` itérations
-(dont 1 400 000 restaurées d'un checkpoint et 378 000 dans le dernier
-processus ; `iters_last_process` et `iters_breakdown` sont dans le JSON).
+`n=2`, `N=768` : convergé, résidu `9.713e-9`, `1 172 000` itérations en un
+seul processus (le journal montre la rampe de couvercle complète de 768 pas,
+donc aucun redémarrage).
+`n=4`, `N=768` : convergé, résidu `9.889e-9`, avec un redémarrage depuis un
+checkpoint. Le compteur d'itérations du solveur repart de zéro à chaque
+reprise (`ckpt.activate` remet `it = 0` et `load` ne restaure pas le
+compteur) : seul le dernier segment est donc enregistré, `378 000`
+itérations (`iters_last_process` dans le JSON). Le checkpoint consommé avait
+été écrit `400 000` pas après le démarrage de son propre processus, et un
+journal antérieur (`.before_restart.log`) montre un processus plus ancien
+allant jusqu'à `1.04e6` pas. Le **total cumulé n'est pas enregistré** et
+n'est donc cité nulle part.
 
 La variation `N=384 -> 768` vaut :
 
@@ -170,7 +178,8 @@ dérive systématique à expliquer ; le point `N=768` est simplement un
 ### 2.3 Le déplacement de +19 % était un artefact de convergence
 
 C'est le point que la première version de cette note ne pouvait pas trancher.
-Le checkpoint intermédiaire du champ `n=4` (1.4 M itérations, résidu `~6e-7`)
+Le checkpoint intermédiaire du champ `n=4` (environ 1.4 M itérations dans le
+run, résidu `~6e-7`)
 donnait `D*(n=4) = 18.074911` et `I_D = +0.025944 %`, soit `+19 %` au-dessus
 de `N=384`. Le run convergé donne `D* = 18.074257` et `I_D = +0.022323 %`,
 soit `+2.5 %`.

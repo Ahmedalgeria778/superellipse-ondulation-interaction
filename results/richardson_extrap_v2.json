@@ -1,5 +1,5 @@
 {
- "label": "FINAL - n=4 N=768 converged (residual 9.89e-9, 1.778e6 iterations)",
+ "label": "FINAL - n=4 N=768 converged (residual 9.89e-9; final process 3.78e5 iterations after a checkpoint restart)",
  "Re": 100,
  "alpha": 0.0,
  "D_star": {

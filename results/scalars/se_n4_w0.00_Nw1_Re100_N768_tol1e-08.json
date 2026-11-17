@@ -6,7 +6,7 @@
   "Re": 100,
   "N": 768,
   "status": "converged",
-  "iters": 1778000,
+  "iters": 378000,
   "residual": 9.888723254527013e-09,
   "Ma": 0.01127637244510988,
   "fluid_area": 0.9635721842447916,
@@ -27,5 +27,5 @@
   "target_tau": 0.65,
   "resumed": true,
   "iters_last_process": 378000,
-  "iters_breakdown": "1400000 restored from the resume checkpoint + 378000 in the final process"
+  "iters_breakdown": "iters (and iters_last_process) = 378000 steps in the final process only; the solver resets its counter at every restart, so no cumulative total exists. The consumed checkpoint had been written 400000 steps into an earlier process, and a pre-restart log (results/logs/..._before_restart.log) shows an older process reaching 1040000 steps."
 }
