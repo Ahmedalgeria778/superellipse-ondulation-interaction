@@ -281,16 +281,36 @@ fins n'est pas atteint (0.87 % sur `D*`) et n'est revendiqué nulle part.
 - FEM Taylor-Hood `Re=1000`, `nx=64/128/256` (`n=2,4`) : terminés ;
   `nx=256` donne `D*(n=2)=32.20162`, `D*(n=4)=32.39251`,
   `I_D = +0.593 %`, bilans natifs `+0.0109 %` et `+0.0068 %`.
-- FEM `Re=400`, `nx=32` : `n=2` terminé.
+- FEM `Re=400`, `nx=32` : `n=2` et `n=4` terminés (2026-11-17, 44 et 48
+  itérations, 23 s et 25 s ; résidus de point fixe < `1e-10`). Résultats :
+  `D* = 25.554` (`n=2`) et `26.599` (`n=4`) sur le champ projeté,
+  `25.625` et `25.691` en natif, soit `I_D(FEM, nx=32) = +4.1 %` contre
+  `+0.32 %` en LBM à `N=384`. L'écart (facteur 13) confirme que `nx=32` est
+  trop grossier pour un contraste : ces deux cas restent hors des tableaux
+  et des figures, et seront versés à la prochaine archive de données
+  (v1.2.0), pas à la v1.1.0 déjà publiée. Le diagnostic signale par ailleurs
+  un Mach local de 1.67 sur ce maillage (cf. `Ma_ok = false` dans les JSON),
+  contre 0.0601 en LBM : autre raison de ne pas s'en servir.
 - Balayage Mach (`results/ma_sweep/`, tableaux SM `supptab:fitma` et
   `supptab:ma_low_high`).
 
-### En cours / non lancés (perspectives, explicitement étiquetés)
+### En cours
 
-- LBM `N=768` à `Re=400` et `Re=1000` : non lancés (~120 h/cas au débit
-  mesuré). Ils étendraient le test de résolution aux Reynolds élevés, où le
-  span est déjà plus large (`2.4e-3` et `1.4e-2` pp).
-- FEM `Re=400`, `nx=32`, `n=4` : non lancé, non utilisé dans les tableaux.
+- LBM `N=768`, `Re=400`, `alpha=0`, `n=2` et `n=4` : **lancés le
+  2026-11-17 à 11:23**, sans plafond (`tol=1e-8`, `max_iter=1e8`), sous le
+  superviseur `solver/watch_long.py` qui relance automatiquement après une
+  coupure et s'arrête sur `status = converged` (JSON). Débit mesuré :
+  20 000 itérations en 1 075 s, soit `0.0537` s/it ; à ce rythme, 550 k à
+  1.2 M itérations donnent **8 à 18 h** par cas, les deux tournant en
+  parallèle. Journaux : `results/logs/watch_Re400_N768_n{2,4}.log` et
+  `results/logs/se_n{2,4}_w0.00_Nw1_Re400_N768_tol1e-08.log` ; checkpoints
+  toutes les 200 000 itérations dans `results/ckpt/`.
+
+### Non lancés (perspectives, explicitement étiquetés)
+
+- LBM `N=768` à `Re=1000` : non lancé (~120 h estimées). Il étendrait le
+  test de résolution au Reynolds le plus élevé, où le span est déjà le plus
+  large (`1.4e-2` pp).
 - Limite 2D à `Re=1000` : explicitée dans le manuscrit, non quantifiée par un
   calcul 3D.
 - Crossover `Re ≈ 346` : exploratoire, présenté comme tel.
