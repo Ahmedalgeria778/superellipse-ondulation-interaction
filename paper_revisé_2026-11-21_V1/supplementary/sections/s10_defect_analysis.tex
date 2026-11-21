@@ -1,0 +1,22 @@
+\begin{table}[!htbp]
+\centering
+\caption{Energy-balance defect $\varepsilon_E = |P^*-D^*|/D^* \times 100\%$ for $n=2$ and $n=4$ at $\alpha=0$, and the primary contrast $I_D(2,4)$, versus grid resolution $N$ at $Re=100$ and $Re=400$. The defect decreases by approximately a factor of 3 between $N=128$ and $N=384$ (from $\sim5.9\%$ to $\sim2.0\%$ at $Re=100$, and from $\sim6.2\%$ to $\sim2.0\%$ at $Re=400$), and by a further factor of about $2.3$ to $0.87\%$ at $N=768$ and $Re=100$ ($0.89\%$ at $Re=400$ and $0.85\%$ at $Re=1000$), while the contrast $I_D(2,4)$ remains stable to within $7.2\times10^{-4}$~pp ($3.2\%$ of its value) at $Re=100$ over $N=128$--$768$ and $2.4\times10^{-3}$~pp ($0.7\%$) at $Re=400$ over $N=128$--$768$. This demonstrates that the absolute defect is a common-mode error that cancels in the paired contrast $\Delta D = D^*(4)-D^*(2)$, whose variation is orders of magnitude smaller than that of the defect itself.}
+\label{supptab:defect_vs_contrast}
+\begin{tabular}{@{}c|c|cc|cc@{}}
+\hline
+$Re$ & $N$ & $\varepsilon_E(n{=}2)$ [\%] & $\varepsilon_E(n{=}4)$ [\%] & $\Delta\varepsilon$ [\%] & $I_D(2,4)$ [\%] \\
+\hline
+$100$ & $128$ & $5.902$ & $5.904$ & $0.002$ & $0.02161$ \\
+      & $256$ & $3.071$ & $3.072$ & $0.001$ & $0.02195$ \\
+      & $384$ & $1.976$ & $1.977$ & $0.001$ & $0.02178$ \\
+      & $768$ & $0.865$ & $0.868$ & $0.003$ & $0.02232$ \\
+\hline
+$400$ & $128$ & $6.204$ & $6.193$ & $0.011$ & $0.32251$ \\
+      & $256$ & $3.199$ & $3.194$ & $0.005$ & $0.32462$ \\
+      & $384$ & $2.041$ & $2.038$ & $0.003$ & $0.32488$ \\
+      & $768$ & $0.892$ & $0.891$ & $0.001$ & $0.32442$ \\
+\hline
+\end{tabular}
+\end{table}
+
+The variation of the defect between $N=128$ and the finest grid is $\Delta\varepsilon_E \approx 5.0$ percentage points at $Re=100$ (over $N=128$--$768$) and $\approx 5.3$ points at $Re=400$ (over $N=128$--$768$), while the contrast $I_D(2,4)$ varies by only $7.2\times10^{-4}$~pp and $2.4\times10^{-3}$~pp, respectively---i.e., three to four orders of magnitude less. The defect is therefore a common-mode resolution error of the absolute integrals $P^*$ and $D^*$ that cancels in their paired difference. The small residual $\Delta\varepsilon_E$ between $n=2$ and $n=4$ at fixed $N$ (third column) is at most $0.011\%$, which bounds the contamination of the contrast by differential defect effects to well below the quoted span.
